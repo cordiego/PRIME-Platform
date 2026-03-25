@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRIMEnergeia — Sovereign Clean Energy Intelligence</title>
+  <meta name="description" content="Physics-based simulation engines for grid control, energy storage, hydrogen systems, and advanced materials. HJB-optimal dispatch for $216M TAM.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <div class="navbar-logo">⚡ PRIMEnergeia</div>
+    <ul class="navbar-links" id="navLinks">
+      <li><a onclick="showPage('landing')" class="active" data-page="landing">Home</a></li>
+      <li><a onclick="showPage('products')" data-page="products">Products</a></li>
+      <li><a onclick="showPage('pricing')" data-page="pricing">Pricing</a></li>
+      <li><a onclick="showPage('demo')" data-page="demo">Live Demo</a></li>
+      <li><a onclick="showPage('contact')" data-page="contact">Contact</a></li>
+      <li><a href="https://primenergeia-sovereign.streamlit.app" target="_blank" class="navbar-cta">Dashboard ↗</a></li>
+    </ul>
+    <button class="navbar-mobile-toggle" onclick="toggleMobile()" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     PAGE: LANDING
+     ============================================================ -->
+<div class="page active" id="page-landing">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Sovereign Clean Energy Intelligence</div>
+      <h1>Physics Engines That Control the Grid</h1>
+      <p>HJB-optimal dispatch for energy storage, hydrogen turbines, and perovskite solar — across 3 international markets. Simulation-driven decisions for the clean energy transition.</p>
+      <div class="hero-cta-group">
+        <a class="btn btn-primary" onclick="showPage('demo')">Try Live Demo →</a>
+        <a class="btn btn-secondary" onclick="showPage('products')">View Products</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-value">5</div>
+          <div class="hero-stat-label">Business Units</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">24</div>
+          <div class="hero-stat-label">Simulation Engines</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">3</div>
+          <div class="hero-stat-label">Markets</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">$216M</div>
+          <div class="hero-stat-label">TAM</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Technology Stack</div>
+        <h2>Built on Real Physics</h2>
+        <p>Every engine is grounded in peer-reviewed thermodynamics, electrochemistry, and optimal control theory.</p>
+      </div>
+      <div class="products-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <div style="text-align: center; padding: 24px;">
+          <div style="font-size: 32px; margin-bottom: 8px;">🧮</div>
+          <div style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-cyan); font-weight: 600;">HJB Control</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Hamilton-Jacobi-Bellman</div>
+        </div>
+        <div style="text-align: center; padding: 24px;">
+          <div style="font-size: 32px; margin-bottom: 8px;">⚡</div>
+          <div style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-cyan); font-weight: 600;">Nernst + Brayton</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Fuel Cell & Turbine Physics</div>
+        </div>
+        <div style="text-align: center; padding: 24px;">
+          <div style="font-size: 32px; margin-bottom: 8px;">🔬</div>
+          <div style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-cyan); font-weight: 600;">TMM + Mie</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Optical Multilayer Modeling</div>
+        </div>
+        <div style="text-align: center; padding: 24px;">
+          <div style="font-size: 32px; margin-bottom: 8px;">🤖</div>
+          <div style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-cyan); font-weight: 600;">Bayesian GP</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Self-Driving Lab Optimization</div>
+        </div>
+        <div style="text-align: center; padding: 24px;">
+          <div style="font-size: 32px; margin-bottom: 8px;">♻️</div>
+          <div style="font-family: var(--font-mono); font-size: 13px; color: var(--accent-cyan); font-weight: 600;">Circular Economy</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Module Recycling & Pb Capture</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     PAGE: PRODUCTS
+     ============================================================ -->
+<div class="page" id="page-products">
+  <section class="section" style="padding-top: 120px;">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Product Suite</div>
+        <h2>5 Strategic Business Units</h2>
+        <p>Enterprise-grade simulation engines spanning the entire clean energy value chain.</p>
+      </div>
+
+      <!-- SBU 1 -->
+      <div style="margin-bottom: 48px;">
+        <h3 style="font-family: var(--font-mono); font-size: 14px; color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">SBU 1 — Energy Core</h3>
+        <div class="products-grid">
+          <div class="product-card" style="--card-accent: #00d1ff;">
+            <div class="product-icon">⚡</div>
+            <div class="product-title" style="color: #00d1ff;">Grid Control</div>
+            <div class="product-desc">HJB frequency regulation across SEN 🇲🇽, ERCOT 🇺🇸, and MIBEL 🇪🇸🇵🇹 markets. Real-time optimal dispatch with physics-constrained state estimation.</div>
+            <div class="product-tags">
+              <span class="tag">HJB</span>
+              <span class="tag">3 Markets</span>
+              <span class="tag">Real-Time</span>
+            </div>
+          </div>
+          <div class="product-card" style="--card-accent: #00ff88;">
+            <div class="product-icon">🔋</div>
+            <div class="product-title" style="color: #00ff88;">Battery BESS</div>
+            <div class="product-desc">400 MWh grid-scale storage simulator. LFP/NMC cell electrochemistry, calendar + cycle aging, arbitrage dispatch, and multi-stream revenue optimization.</div>
+            <div class="product-tags">
+              <span class="tag">400 MWh</span>
+              <span class="tag">LFP</span>
+              <span class="tag">Degradation</span>
+            </div>
+          </div>
+          <div class="product-card" style="--card-accent: #00ccff;">
+            <div class="product-icon">🌬️</div>
+            <div class="product-title" style="color: #00ccff;">PRIM Wind</div>
+            <div class="product-desc">15 MW offshore wind + green H₂ coupling. IEC power curves, Jensen wake model, Weibull AEP, and PEM electrolyzer co-optimization.</div>
+            <div class="product-tags">
+              <span class="tag">15 MW</span>
+              <span class="tag">Green H₂</span>
+              <span class="tag">IEC 61400</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SBU 2 -->
+      <div style="margin-bottom: 48px;">
+        <h3 style="font-family: var(--font-mono); font-size: 14px; color: var(--accent-coral); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">SBU 2 — PRIMEngines</h3>
+        <div class="products-grid">
+          <div class="product-card" style="--card-accent: #FF6347;">
+            <div class="product-icon">🔥</div>
+            <div class="product-title" style="color: #FF6347;">HY-P100 H₂ Turbine</div>
+            <div class="product-desc">100 kW hydrogen Brayton-cycle micro gas turbine. Lean premixed low-NOx combustion, CHP mode (85% efficiency), and grid peaking ramp-rate modeling.</div>
+            <div class="product-tags">
+              <span class="tag">Brayton</span>
+              <span class="tag">100 kW</span>
+              <span class="tag">CHP</span>
+            </div>
+          </div>
+          <div class="product-card" style="--card-accent: #ffd700;">
+            <div class="product-icon">⚡</div>
+            <div class="product-title" style="color: #ffd700;">PEM-PB-50 Fuel Cell</div>
+            <div class="product-desc">50 kW PEM fuel cell power bank. Nernst OCV, triple-loss polarization curves, Nafion 212 membrane, and voltage degradation tracking.</div>
+            <div class="product-tags">
+              <span class="tag">Nernst</span>
+              <span class="tag">50 kW</span>
+              <span class="tag">370 Cells</span>
+            </div>
+          </div>
+          <div class="product-card" style="--card-accent: #00ffcc;">
+            <div class="product-icon">♻️</div>
+            <div class="product-title" style="color: #00ffcc;">PRIMEcycle</div>
+            <div class="product-desc">Perovskite module recycling simulator. BOM disassembly, chemical recovery, Pb capture, energy balance, and circular economy plant economics.</div>
+            <div class="product-tags">
+              <span class="tag">Circular</span>
+              <span class="tag">Pb Capture</span>
+              <span class="tag">LCA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SBU 3 -->
+      <div style="margin-bottom: 48px;">
+        <h3 style="font-family: var(--font-mono); font-size: 14px; color: var(--accent-purple); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">SBU 3 — Granas Materials Science</h3>
+        <div class="products-grid">
+          <div class="product-card" style="--card-accent: #8a2be2;">
+            <div class="product-icon">🔬</div>
+            <div class="product-title" style="color: #8a2be2;">Optics Engine</div>
+            <div class="product-desc">TMM/Mie optical multilayer simulation for perovskite-silicon tandem cells. AM1.5G spectral optimization with HJB-driven layer thickness tuning.</div>
+            <div class="product-tags">
+              <span class="tag">TMM</span>
+              <span class="tag">Mie</span>
+              <span class="tag">HJB</span>
+            </div>
+          </div>
+          <div class="product-card" style="--card-accent: #00ffcc;">
+            <div class="product-icon">🤖</div>
+            <div class="product-title" style="color: #00ffcc;">Self-Driving Lab</div>
+            <div class="product-desc">Bayesian optimization for perovskite fabrication. 6D Gaussian Process + Expected Improvement acquisition for autonomous experiment scheduling.</div>
+            <div class="product-tags">
+              <span class="tag">Bayesian</span>
+              <span class="tag">6D GP</span>
+              <span class="tag">Active Learning</span>
+            </div>
+          </div>
+          <div class="product-card" style="--card-accent: #2ecc71;">
+            <div class="product-icon">📐</div>
+            <div class="product-title" style="color: #2ecc71;">Blueprint + 7 Engines</div>
+            <div class="product-desc">Master geometric engine plus CFRP structural, ETFE encapsulation, TOPCon silicon, Albedo thermal, GHB catalyst, Scale manufacturing, and Metrics twin.</div>
+            <div class="product-tags">
+              <span class="tag">10 Engines</span>
+              <span class="tag">Tandem</span>
+              <span class="tag">GW Scale</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SBU 4 -->
+      <div style="margin-bottom: 48px;">
+        <h3 style="font-family: var(--font-mono); font-size: 14px; color: var(--accent-gold); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">SBU 4 — Eureka Trading</h3>
+        <div class="products-grid" style="grid-template-columns: 1fr;">
+          <div class="product-card" style="--card-accent: #F1C40F;">
+            <div class="product-icon">📈</div>
+            <div class="product-title" style="color: #F1C40F;">Eureka Sovereign</div>
+            <div class="product-desc">VIX-regime volatility targeting strategy with 5-asset allocation. Automated daily signals via Telegram, backtested from 2010. GitHub Actions CI/CD dispatch.</div>
+            <div class="product-tags">
+              <span class="tag">VIX Regime</span>
+              <span class="tag">5 Assets</span>
+              <span class="tag">Telegram</span>
+              <span class="tag">Automated</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SBU 5 -->
+      <div>
+        <h3 style="font-family: var(--font-mono); font-size: 14px; color: var(--text-secondary); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">SBU 5 — Platform Infrastructure</h3>
+        <div class="products-grid">
+          <div class="product-card" style="--card-accent: #94a3b8;">
+            <div class="product-icon">🧠</div>
+            <div class="product-title">PRIME Kernel</div>
+            <div class="product-desc">Shared IP core providing HJB solver, physics constants, and telemetry primitives used across all 5 SBUs. The connective tissue of the platform.</div>
+            <div class="product-tags">
+              <span class="tag">HJB</span>
+              <span class="tag">Shared Core</span>
+            </div>
+          </div>
+          <div class="product-card" style="--card-accent: #94a3b8;">
+            <div class="product-icon">🏭</div>
+            <div class="product-title">PRIMStack</div>
+            <div class="product-desc">Unified plant integrator. Multi-timescale HJB dispatch orchestrating energy flows across solar, wind, H₂, NH₃, grid, and waste heat recovery loops.</div>
+            <div class="product-tags">
+              <span class="tag">Plant Control</span>
+              <span class="tag">Multi-Scale</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     PAGE: PRICING
+     ============================================================ -->
+<div class="page" id="page-pricing">
+  <section class="section" style="padding-top: 120px;">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Pricing</div>
+        <h2>Start Simulating Today</h2>
+        <p>From free exploration to enterprise deployment. Your IP stays protected — you only see results, never source code.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Explorer -->
+        <div class="pricing-card">
+          <div class="pricing-name">Explorer</div>
+          <div class="pricing-price">$0<span>/forever</span></div>
+          <div class="pricing-desc">Try the platform risk-free</div>
+          <ul class="pricing-features">
+            <li>3 simulation runs per day</li>
+            <li>Granas optics demo</li>
+            <li>Public product catalog</li>
+            <li>Community support</li>
+          </ul>
+          <a class="btn btn-secondary pricing-btn" onclick="showPage('demo')">Try Demo →</a>
+        </div>
+
+        <!-- Researcher -->
+        <div class="pricing-card">
+          <div class="pricing-name">Researcher</div>
+          <div class="pricing-price">$49<span>/mo</span></div>
+          <div class="pricing-desc">For labs and early-stage projects</div>
+          <ul class="pricing-features">
+            <li>100 simulation runs / month</li>
+            <li>All Granas + PRIMEngine access</li>
+            <li>PDF export reports</li>
+            <li>Email support (48h SLA)</li>
+            <li>Parameter sweep mode</li>
+          </ul>
+          <a class="btn btn-secondary pricing-btn" onclick="showPage('contact')">Get Started →</a>
+        </div>
+
+        <!-- Professional -->
+        <div class="pricing-card featured">
+          <div class="pricing-name">Professional</div>
+          <div class="pricing-price">$299<span>/mo</span></div>
+          <div class="pricing-desc">For energy companies and R&D teams</div>
+          <ul class="pricing-features">
+            <li>Unlimited simulations</li>
+            <li>Full API access (REST + webhooks)</li>
+            <li>Grid Control (SEN/ERCOT/MIBEL)</li>
+            <li>Custom parameter ranges</li>
+            <li>Priority support (4h SLA)</li>
+            <li>Team seats (up to 5)</li>
+          </ul>
+          <a class="btn btn-primary pricing-btn" onclick="showPage('contact')">Contact Sales →</a>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="pricing-card">
+          <div class="pricing-name">Enterprise</div>
+          <div class="pricing-price">Custom</div>
+          <div class="pricing-desc">Dedicated deployment for large orgs</div>
+          <ul class="pricing-features">
+            <li>Dedicated instance</li>
+            <li>On-premise option</li>
+            <li>Custom engine development</li>
+            <li>SLA with uptime guarantee</li>
+            <li>Co-development partnership</li>
+            <li>Unlimited team seats</li>
+          </ul>
+          <a class="btn btn-secondary pricing-btn" onclick="showPage('contact')">Talk to Us →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     PAGE: DEMO
+     ============================================================ -->
+<div class="page" id="page-demo">
+  <section class="section" style="padding-top: 120px;">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Interactive Demo</div>
+        <h2>Granas Perovskite Tandem Simulator</h2>
+        <p>Tune the fabrication parameters and see real-time performance predictions. This is a simplified client-side model — the full engine runs server-side.</p>
+      </div>
+
+      <div class="demo-container">
+        <div class="demo-controls">
+          <h3>⚙️ Fabrication Parameters</h3>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Perovskite Thickness</span>
+              <span class="control-value" id="val-thickness">500 nm</span>
+            </div>
+            <input type="range" id="slider-thickness" min="200" max="900" value="500" step="10" oninput="updateDemo()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Bandgap (Br content x)</span>
+              <span class="control-value" id="val-bandgap">1.68 eV</span>
+            </div>
+            <input type="range" id="slider-bandgap" min="155" max="185" value="168" step="1" oninput="updateDemo()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Annealing Temperature</span>
+              <span class="control-value" id="val-anneal">120 °C</span>
+            </div>
+            <input type="range" id="slider-anneal" min="80" max="200" value="120" step="5" oninput="updateDemo()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>ETL Thickness (SnO₂)</span>
+              <span class="control-value" id="val-etl">25 nm</span>
+            </div>
+            <input type="range" id="slider-etl" min="10" max="60" value="25" step="1" oninput="updateDemo()">
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <span>Anti-Reflection Coating</span>
+              <span class="control-value" id="val-arc">80 nm</span>
+            </div>
+            <input type="range" id="slider-arc" min="40" max="140" value="80" step="5" oninput="updateDemo()">
+          </div>
+
+          <button class="btn btn-primary demo-run-btn" onclick="runSimulation()">
+            ▶ Run Simulation
+          </button>
+        </div>
+
+        <div class="demo-results">
+          <h3>📊 Predicted Performance</h3>
+          <div class="results-grid">
+            <div class="result-metric">
+              <div class="result-metric-label">PCE (Tandem)</div>
+              <div class="result-metric-value" id="result-pce">31.2<span class="result-metric-unit"> %</span></div>
+            </div>
+            <div class="result-metric">
+              <div class="result-metric-label">Jsc</div>
+              <div class="result-metric-value" id="result-jsc">19.8<span class="result-metric-unit"> mA/cm²</span></div>
+            </div>
+            <div class="result-metric">
+              <div class="result-metric-label">Voc</div>
+              <div class="result-metric-value" id="result-voc">1.92<span class="result-metric-unit"> V</span></div>
+            </div>
+            <div class="result-metric">
+              <div class="result-metric-label">Fill Factor</div>
+              <div class="result-metric-value" id="result-ff">82.1<span class="result-metric-unit"> %</span></div>
+            </div>
+            <div class="result-metric">
+              <div class="result-metric-label">LCOE</div>
+              <div class="result-metric-value" id="result-lcoe">2.8<span class="result-metric-unit"> ¢/kWh</span></div>
+            </div>
+            <div class="result-metric">
+              <div class="result-metric-label">Stability (T80)</div>
+              <div class="result-metric-value" id="result-t80">18.5<span class="result-metric-unit"> years</span></div>
+            </div>
+          </div>
+          <div class="demo-chart">
+            <canvas id="demoCanvas"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 40px; color: var(--text-muted); font-size: 13px;">
+        <span class="live-indicator"><span class="live-dot"></span> Client-side preview</span>
+        &nbsp;·&nbsp; Full server-side simulation with 24 physics engines available on Professional tier
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     PAGE: CONTACT
+     ============================================================ -->
+<div class="page" id="page-contact">
+  <section class="section" style="padding-top: 120px;">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Get In Touch</div>
+        <h2>Let's Build the Future of Energy</h2>
+        <p>Whether you need a simulation API, a custom engine, or an enterprise deployment — we're ready to help.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>PRIMEnergeia S.A.S.</h3>
+          <p>Sovereign clean energy intelligence. Physics-based simulation engines for grid operators, energy developers, and materials researchers worldwide.</p>
+
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📧</div>
+            <span>contact@primenergeia.com</span>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">🌐</div>
+            <a href="https://github.com/cordiego" target="_blank">github.com/cordiego</a>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📍</div>
+            <span>Global — 🇲🇽 🇺🇸 🇪🇸 🇵🇹</span>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">⚡</div>
+            <a href="https://primenergeia-sovereign.streamlit.app" target="_blank">Live Dashboard</a>
+          </div>
+
+          <div style="margin-top: 32px; padding: 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;">
+            <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-cyan); margin-bottom: 8px;">LEAD COMPUTATIONAL PHYSICIST</div>
+            <div style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">Diego Córdoba Urrutia</div>
+            <div style="font-size: 13px; color: var(--text-muted);">HJB / Energy Systems / Materials Science</div>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label for="contact-name">Name</label>
+              <input type="text" id="contact-name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="contact-company">Company</label>
+              <input type="text" id="contact-company" placeholder="Organization">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="contact-email">Email</label>
+            <input type="email" id="contact-email" placeholder="you@company.com" required>
+          </div>
+          <div class="form-group">
+            <label for="contact-interest">Interest</label>
+            <select id="contact-interest">
+              <option value="">Select a product area...</option>
+              <option value="grid">Grid Control (SEN/ERCOT/MIBEL)</option>
+              <option value="granas">Granas Materials Science</option>
+              <option value="engines">PRIMEngines (H₂ Turbine / PEM)</option>
+              <option value="battery">Battery BESS</option>
+              <option value="eureka">Eureka Trading</option>
+              <option value="enterprise">Enterprise / Custom</option>
+              <option value="api">API Access</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" placeholder="Tell us about your project and how we can help..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Send Message →</button>
+          <div id="form-success" style="display: none; text-align: center; margin-top: 16px; color: var(--accent-green); font-family: var(--font-mono); font-size: 13px;">
+            ✅ Message recorded. We'll be in touch within 24 hours.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer">
+  <div class="footer-logo">⚡ PRIMEnergeia</div>
+  <div class="footer-tagline">Sovereign Clean Energy Intelligence</div>
+  <div class="footer-links">
+    <a onclick="showPage('products')">Products</a>
+    <a onclick="showPage('pricing')">Pricing</a>
+    <a onclick="showPage('demo')">Demo</a>
+    <a href="https://primenergeia-sovereign.streamlit.app" target="_blank">Dashboard</a>
+    <a href="https://github.com/cordiego" target="_blank">GitHub</a>
+    <a onclick="showPage('contact')">Contact</a>
+  </div>
+  <div class="footer-copy">© 2026 PRIMEnergeia S.A.S. — All rights reserved. Soberanía Energética Global ⚡🇲🇽🇺🇸🇪🇸🇵🇹</div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script src="app.js"></script>
+
+</body>
+</html>

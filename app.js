@@ -100,15 +100,18 @@ function calculateROI(fleetMW, costPerMWh, batteryMWh, capacityFactor, market) {
 
   // Minimum annual commitments by tier
   let minCommitment = 50000;  // Growth tier default
-  if (fleetMW > 1000) minCommitment = 2000000;    // Enterprise: >1 GW
-  else if (fleetMW > 200) minCommitment = 500000;  // Scale: 200 MW - 1 GW
-  else if (fleetMW > 50) minCommitment = 50000;    // Growth: <200 MW
-  else minCommitment = 0;                           // Pilot: free
+  let startingFee = 500000;   // One-time implementation fee
+  if (fleetMW > 1000) { minCommitment = 2000000; startingFee = 2500000; }    // Enterprise: >1 GW
+  else if (fleetMW > 200) { minCommitment = 500000; startingFee = 1500000; }  // Scale: 200 MW - 1 GW
+  else if (fleetMW > 50) { minCommitment = 50000; startingFee = 500000; }     // Growth: <200 MW
+  else { minCommitment = 0; startingFee = 0; }                                // Pilot: free
 
   const licenseCost = Math.max(valueShareFee, minCommitment);
 
-  // CLIENT's ROI on our license
-  const roi = totalClientSavings / licenseCost;
+  // CLIENT's ROI on our license (amortize starting fee over 3 years)
+  const annualizedStartingFee = startingFee / 3;
+  const totalAnnualCost = licenseCost + annualizedStartingFee;
+  const roi = totalClientSavings / totalAnnualCost;
 
   // Battery life extension (degradation-aware dispatch extends life ~20%)
   const batteryLifeExt = batteryMWh > 0 ? 1.8 : 0;

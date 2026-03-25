@@ -512,6 +512,13 @@ a:hover { color: #fff; }
   flex-shrink: 0;
 }
 
+.pricing-features li:first-child {
+  color: var(--accent-gold);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
+}
+
 .pricing-btn {
   width: 100%;
   justify-content: center;

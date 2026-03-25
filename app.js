@@ -94,12 +94,18 @@ function calculateROI(fleetMW, costPerMWh, batteryMWh, capacityFactor, market) {
   const ancillaryBonus = batteryMWh > 0 ? batteryMWh * mp.ancillaryRate * 365 * 0.3 : 0;
   const totalClientSavings = clientSavings + ancillaryBonus;
 
-  // PRIMEngine license cost (what they pay US)
-  let licenseCost = 200000;
-  if (fleetMW > 500) licenseCost = 500000;
-  else if (fleetMW > 200) licenseCost = 350000;
-  else if (fleetMW > 50) licenseCost = 200000;
-  else licenseCost = 15000;
+  // PRIMEngine fee: 25% of incremental revenue (value share model)
+  const valueShareRate = 0.25;
+  const valueShareFee = totalClientSavings * valueShareRate;
+
+  // Minimum annual commitments by tier
+  let minCommitment = 50000;  // Growth tier default
+  if (fleetMW > 1000) minCommitment = 2000000;    // Enterprise: >1 GW
+  else if (fleetMW > 200) minCommitment = 500000;  // Scale: 200 MW - 1 GW
+  else if (fleetMW > 50) minCommitment = 50000;    // Growth: <200 MW
+  else minCommitment = 0;                           // Pilot: free
+
+  const licenseCost = Math.max(valueShareFee, minCommitment);
 
   // CLIENT's ROI on our license
   const roi = totalClientSavings / licenseCost;

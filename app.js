@@ -287,24 +287,38 @@ function drawChart() {
   ctx.fillText('Silicon (bottom)', 186, legendY + 4);
 }
 
-// ── Contact Form ──
+// ── Contact Form (Formspree) ──
 function handleSubmit(e) {
   e.preventDefault();
-  const data = {
-    name: document.getElementById('contact-name').value,
-    company: document.getElementById('contact-company').value,
-    email: document.getElementById('contact-email').value,
-    interest: document.getElementById('contact-interest').value,
-    message: document.getElementById('contact-message').value,
-    timestamp: new Date().toISOString()
-  };
-  console.log('Contact submission:', data);
-  // In production, this would POST to a backend
-  document.getElementById('form-success').style.display = 'block';
-  document.getElementById('contactForm').reset();
-  setTimeout(() => {
-    document.getElementById('form-success').style.display = 'none';
-  }, 5000);
+  const form = document.getElementById('contactForm');
+  const btn = form.querySelector('button[type="submit"]');
+  const origText = btn.textContent;
+  btn.textContent = '⏳ Sending...';
+  btn.style.opacity = '0.7';
+
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(res => {
+    btn.textContent = origText;
+    btn.style.opacity = '1';
+    if (res.ok) {
+      document.getElementById('form-success').style.display = 'block';
+      form.reset();
+      setTimeout(() => {
+        document.getElementById('form-success').style.display = 'none';
+      }, 5000);
+    } else {
+      alert('Something went wrong. Please email contact@primenergeia.com directly.');
+    }
+  })
+  .catch(() => {
+    btn.textContent = origText;
+    btn.style.opacity = '1';
+    alert('Network error. Please email contact@primenergeia.com directly.');
+  });
 }
 
 // ── Initialize ──

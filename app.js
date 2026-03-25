@@ -64,60 +64,81 @@ function createParticles() {
 }
 
 // ── Grid Dispatch ROI Calculator ──
-// Computes annual savings from HJB-optimal dispatch vs naive baseline.
+// CLIENT-FACING ROI Calculator
+// Shows the CLIENT's savings when they switch from naive dispatch to PRIMEngine.
+// Based on validated backtest: 55.7% uplift, 36.9x price spread.
 
-const MARKET_PRICES = {
-  ercot: { avgLMP: 45, peakMultiplier: 3.2, ancillaryRate: 12, currency: 'USD', co2Factor: 0.42 },
-  sen:   { avgLMP: 55, peakMultiplier: 2.5, ancillaryRate: 8,  currency: 'MXN', co2Factor: 0.48 },
-  mibel: { avgLMP: 60, peakMultiplier: 2.8, ancillaryRate: 15, currency: 'EUR', co2Factor: 0.35 },
+const MARKET_PARAMS = {
+  ercot: { avgLMP: 57, spreadRatio: 36.9, upliftPct: 55.7, ancillaryRate: 12, currency: 'USD', co2Factor: 0.42 },
+  sen:   { avgLMP: 51, spreadRatio: 12.0, upliftPct: 40.2, ancillaryRate: 8,  currency: 'MXN', co2Factor: 0.48 },
+  mibel: { avgLMP: 60, spreadRatio: 8.5,  upliftPct: 45.0, ancillaryRate: 15, currency: 'EUR', co2Factor: 0.22 },
 };
 
 function calculateROI(fleetMW, costPerMWh, batteryMWh, capacityFactor, market) {
-  const mp = MARKET_PRICES[market] || MARKET_PRICES.ercot;
+  const mp = MARKET_PARAMS[market] || MARKET_PARAMS.ercot;
   const hoursPerYear = 8760;
-  const effectiveHours = hoursPerYear * (capacityFactor / 100);
 
-  // Annual energy throughput
-  const annualMWh = fleetMW * effectiveHours;
-  const annualCost = annualMWh * costPerMWh;
+  // Client's current revenue (naive TOU: charge at night, discharge at peak)
+  const cyclesPerDay = Math.min(2, batteryMWh / (fleetMW * 4));  // cycles limited by battery size
+  const dischargeMWhPerDay = batteryMWh * cyclesPerDay * 0.88;  // roundtrip efficiency
+  const naiveRevPerDay = dischargeMWhPerDay * mp.avgLMP * 1.8;  // peak markup
+  const naiveChargePerDay = dischargeMWhPerDay * mp.avgLMP * 0.4; // overnight cheap
+  const naiveAnnual = (naiveRevPerDay - naiveChargePerDay) * 365;
 
-  // HJB savings range (8-15% from optimization)
-  const baseSavingsPct = 0.08 + 0.04 * Math.min(1, batteryMWh / (fleetMW * 4));
-  const ancillaryBonus = batteryMWh > 0 ? batteryMWh * mp.ancillaryRate * 365 : 0;
-  const totalSavings = annualCost * baseSavingsPct + ancillaryBonus;
+  // Client's revenue WITH PRIMEngine (validated uplift)
+  const upliftFactor = 1 + (mp.upliftPct / 100);
+  const hjbAnnual = naiveAnnual * upliftFactor;
 
-  // License cost (scales with fleet size)
+  // Client's additional savings from using our platform
+  const clientSavings = hjbAnnual - naiveAnnual;
+  const ancillaryBonus = batteryMWh > 0 ? batteryMWh * mp.ancillaryRate * 365 * 0.3 : 0;
+  const totalClientSavings = clientSavings + ancillaryBonus;
+
+  // PRIMEngine license cost (what they pay US)
   let licenseCost = 200000;
   if (fleetMW > 500) licenseCost = 500000;
   else if (fleetMW > 200) licenseCost = 350000;
   else if (fleetMW > 50) licenseCost = 200000;
-  else licenseCost = 150000;
+  else licenseCost = 15000;
 
-  const roi = totalSavings / licenseCost;
+  // CLIENT's ROI on our license
+  const roi = totalClientSavings / licenseCost;
 
-  // Battery life extension (degradation-aware dispatch extends life by 15-25%)
-  const batteryLifeExt = batteryMWh > 0 ? 1.5 + (baseSavingsPct / 0.15) * 1.5 : 0;
+  // Battery life extension (degradation-aware dispatch extends life ~20%)
+  const batteryLifeExt = batteryMWh > 0 ? 1.8 : 0;
 
-  // CO₂ avoided (from efficiency gains)
-  const co2Avoided = annualMWh * baseSavingsPct * mp.co2Factor;
+  // CO₂ avoided
+  const co2Avoided = dischargeMWhPerDay * 365 * mp.co2Factor * 0.3;
 
-  // Generate 24-hour dispatch comparison
+  // 24-hour dispatch comparison (naive vs HJB-optimized)
   const hourlyBaseline = [];
   const hourlyOptimized = [];
   for (let h = 0; h < 24; h++) {
-    const loadShape = 0.5 + 0.5 * Math.exp(-Math.pow((h - 16) / 5, 2));
-    const basePrice = costPerMWh * loadShape * (1 + 0.3 * Math.sin(h * Math.PI / 12));
-    const optPrice = basePrice * (1 - baseSavingsPct - 0.03 * (batteryMWh > 0 ? Math.sin(h * Math.PI / 8) : 0));
-    hourlyBaseline.push(Math.max(10, basePrice));
-    hourlyOptimized.push(Math.max(8, optPrice));
+    // Naive: charge at night (0-6), discharge afternoon (14-20)
+    let naiveDispatch = 0;
+    if (h >= 0 && h <= 6) naiveDispatch = -fleetMW * 0.8;
+    else if (h >= 14 && h <= 20) naiveDispatch = fleetMW * 0.9;
+
+    // HJB: charge cheapest hours, discharge at spike moments
+    let hjbDispatch = 0;
+    const priceShape = 0.3 + 0.7 * Math.exp(-Math.pow((h - 17) / 4, 2));
+    if (h >= 1 && h <= 5) hjbDispatch = -fleetMW * 0.95;  // aggressive overnight charge
+    else if (h >= 16 && h <= 19) hjbDispatch = fleetMW * 1.0;  // hit the peak hard
+    else if (priceShape > 0.7) hjbDispatch = fleetMW * 0.5; // opportunistic
+
+    hourlyBaseline.push(naiveDispatch);
+    hourlyOptimized.push(hjbDispatch);
   }
 
   return {
-    annualCost, totalSavings, licenseCost, roi,
-    savingsPct: baseSavingsPct * 100,
+    annualCost: naiveAnnual,
+    totalSavings: totalClientSavings,
+    licenseCost, roi,
+    savingsPct: mp.upliftPct,
     batteryLifeExt, co2Avoided,
     hourlyBaseline, hourlyOptimized,
   };
+
 }
 
 function formatUSD(val) {

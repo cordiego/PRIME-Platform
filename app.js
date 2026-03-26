@@ -69,9 +69,21 @@ function createParticles() {
 // Based on validated backtest: 55.7% uplift, 36.9x price spread.
 
 const MARKET_PARAMS = {
-  ercot: { avgLMP: 57, spreadRatio: 36.9, upliftPct: 55.7, ancillaryRate: 12, currency: 'USD', co2Factor: 0.42 },
-  sen:   { avgLMP: 51, spreadRatio: 12.0, upliftPct: 40.2, ancillaryRate: 8,  currency: 'MXN', co2Factor: 0.48 },
-  mibel: { avgLMP: 60, spreadRatio: 8.5,  upliftPct: 45.0, ancillaryRate: 15, currency: 'EUR', co2Factor: 0.22 },
+  // ERCOT hubs
+  ercot:       { avgLMP: 57, spreadRatio: 36.9, upliftPct: 55.7, ancillaryRate: 12, currency: 'USD', co2Factor: 0.42 },
+  ercot_north: { avgLMP: 52, spreadRatio: 30.0, upliftPct: 50.2, ancillaryRate: 11, currency: 'USD', co2Factor: 0.42 },
+  ercot_south: { avgLMP: 48, spreadRatio: 25.0, upliftPct: 48.0, ancillaryRate: 10, currency: 'USD', co2Factor: 0.40 },
+  ercot_west:  { avgLMP: 65, spreadRatio: 42.0, upliftPct: 60.0, ancillaryRate: 14, currency: 'USD', co2Factor: 0.45 },
+  // SEN nodes
+  sen_mty:     { avgLMP: 48, spreadRatio: 14.0, upliftPct: 42.5, ancillaryRate: 8, currency: 'USD', co2Factor: 0.48 },
+  sen_vza:     { avgLMP: 45, spreadRatio: 15.5, upliftPct: 44.0, ancillaryRate: 7, currency: 'USD', co2Factor: 0.46 },
+  sen_gdl:     { avgLMP: 43, spreadRatio: 11.0, upliftPct: 38.0, ancillaryRate: 7, currency: 'USD', co2Factor: 0.50 },
+  sen_her:     { avgLMP: 46, spreadRatio: 13.0, upliftPct: 40.0, ancillaryRate: 8, currency: 'USD', co2Factor: 0.47 },
+  sen_qro:     { avgLMP: 42, spreadRatio: 10.5, upliftPct: 36.0, ancillaryRate: 6, currency: 'USD', co2Factor: 0.49 },
+  // MIBEL zones
+  mibel_es:    { avgLMP: 62, spreadRatio: 9.0,  upliftPct: 45.0, ancillaryRate: 15, currency: 'EUR', co2Factor: 0.22 },
+  mibel_pt:    { avgLMP: 58, spreadRatio: 7.5,  upliftPct: 42.0, ancillaryRate: 13, currency: 'EUR', co2Factor: 0.20 },
+  mibel_sur:   { avgLMP: 55, spreadRatio: 8.0,  upliftPct: 48.0, ancillaryRate: 14, currency: 'EUR', co2Factor: 0.18 },
 };
 
 function calculateROI(fleetMW, costPerMWh, batteryMWh, capacityFactor, market) {
@@ -299,13 +311,13 @@ function handleSubmit(e) {
         document.getElementById('form-success').style.display = 'none';
       }, 5000);
     } else {
-      alert('Something went wrong. Please email contact@primenergeia.com directly.');
+      alert('Something went wrong. Please email cordobaurrutia95@gmail.com directly.');
     }
   })
   .catch(() => {
     btn.textContent = origText;
     btn.style.opacity = '1';
-    alert('Network error. Please email contact@primenergeia.com directly.');
+    alert('Network error. Please email cordobaurrutia95@gmail.com directly.');
   });
 }
 

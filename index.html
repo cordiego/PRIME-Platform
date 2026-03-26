@@ -142,18 +142,22 @@
     <div class="container">
       <div class="section-header">
         <div class="section-badge">Product Suite</div>
-        <h2>5 Strategic Business Units</h2>
-        <p>Enterprise-grade simulation engines spanning the entire clean energy value chain.</p>
+        <h2>3 Core Divisions</h2>
+        <p>Enterprise-grade intelligence engines. Each division operates independently with its own revenue model.</p>
       </div>
 
-      <!-- SBU 1 -->
+      <!-- DIVISION 1: Grid Control & Energy -->
       <div style="margin-bottom: 48px;">
-        <h3 style="font-family: var(--font-mono); font-size: 14px; color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">SBU 1 — Energy Core</h3>
+        <div style="padding: 16px 24px; background: linear-gradient(135deg, rgba(0,209,255,0.08), rgba(0,209,255,0.02)); border: 1px solid rgba(0,209,255,0.2); border-radius: 12px; margin-bottom: 20px;">
+          <div style="font-family: var(--font-mono); font-size: 11px; color: #00d1ff; letter-spacing: 2px; font-weight: 600; margin-bottom: 2px;">DIVISION 1</div>
+          <div style="font-size: 18px; font-weight: 700;">⚡ Grid Control & Energy</div>
+          <div style="color: var(--text-muted); font-size: 13px; margin-top: 2px;">HJB-optimal dispatch across ERCOT · SEN · MIBEL — fed by 47 real data nodes</div>
+        </div>
         <div class="products-grid">
           <div class="product-card" style="--card-accent: #00d1ff;">
             <div class="product-icon">⚡</div>
             <div class="product-title" style="color: #00d1ff;">Grid Control</div>
-            <div class="product-desc">HJB frequency regulation across SEN 🇲🇽, ERCOT 🇺🇸, and MIBEL 🇪🇸🇵🇹 markets. Fed by live settlement prices — 47 real data nodes with 15-min resolution.</div>
+            <div class="product-desc">HJB frequency regulation across SEN 🇲🇽, ERCOT 🇺🇸, and MIBEL 🇪🇸🇵🇹. Live settlement prices from 47 nodes with 15-min resolution. DA + RT co-optimization.</div>
             <div class="product-tags">
               <span class="tag">HJB</span>
               <span class="tag">3 Markets</span>
@@ -163,7 +167,7 @@
           <div class="product-card" style="--card-accent: #00ff88;">
             <div class="product-icon">🔋</div>
             <div class="product-title" style="color: #00ff88;">Battery BESS</div>
-            <div class="product-desc">400 MWh grid-scale storage simulator. LFP/NMC cell electrochemistry, calendar + cycle aging, arbitrage dispatch, and multi-stream revenue optimization.</div>
+            <div class="product-desc">400 MWh grid-scale storage. LFP/NMC electrochemistry, calendar + cycle aging, arbitrage dispatch, and multi-stream revenue optimization.</div>
             <div class="product-tags">
               <span class="tag">400 MWh</span>
               <span class="tag">LFP</span>
@@ -173,7 +177,7 @@
           <div class="product-card" style="--card-accent: #00ccff;">
             <div class="product-icon">🌬️</div>
             <div class="product-title" style="color: #00ccff;">PRIM Wind</div>
-            <div class="product-desc">15 MW offshore wind + green H₂ coupling. IEC power curves, Jensen wake model, Weibull AEP, and PEM electrolyzer co-optimization.</div>
+            <div class="product-desc">15 MW offshore wind + green H₂. IEC power curves, Jensen wake model, Weibull AEP, and PEM electrolyzer co-optimization.</div>
             <div class="product-tags">
               <span class="tag">15 MW</span>
               <span class="tag">Green H₂</span>
@@ -181,53 +185,77 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- SBU 2 -->
-      <div style="margin-bottom: 48px;">
-        <h3 style="font-family: var(--font-mono); font-size: 14px; color: var(--accent-coral); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">SBU 2 — PRIMEngines</h3>
-        <div class="products-grid">
-          <div class="product-card" style="--card-accent: #FF6347;">
-            <div class="product-icon">🔥</div>
-            <div class="product-title" style="color: #FF6347;">HY-P100 H₂ Turbine</div>
-            <div class="product-desc">100 kW hydrogen Brayton-cycle micro gas turbine. Lean premixed low-NOx combustion, CHP mode (85% efficiency), and grid peaking ramp-rate modeling.</div>
+        <div class="products-grid" style="margin-top: 16px;">
+          <div class="product-card" style="--card-accent: #AB47BC;">
+            <div class="product-icon">🧠</div>
+            <div class="product-title" style="color: #AB47BC;">HJB Control</div>
+            <div class="product-desc">Hamilton-Jacobi-Bellman dispatch optimizer. Min-fuel engine scheduling with physics-constrained state estimation.</div>
             <div class="product-tags">
-              <span class="tag">Brayton</span>
-              <span class="tag">100 kW</span>
-              <span class="tag">CHP</span>
+              <span class="tag">HJB</span>
+              <span class="tag">Dispatch</span>
             </div>
           </div>
-          <div class="product-card" style="--card-accent: #ffd700;">
-            <div class="product-icon">⚡</div>
-            <div class="product-title" style="color: #ffd700;">PEM-PB-50 Fuel Cell</div>
-            <div class="product-desc">50 kW PEM fuel cell power bank. Nernst OCV, triple-loss polarization curves, Nafion 212 membrane, and voltage degradation tracking.</div>
+          <div class="product-card" style="--card-accent: #78909C;">
+            <div class="product-icon">🏭</div>
+            <div class="product-title" style="color: #78909C;">PRIMStack</div>
+            <div class="product-desc">Unified plant integrator. Multi-timescale HJB dispatch orchestrating Solar+Wind+BESS+H₂ as one system.</div>
             <div class="product-tags">
-              <span class="tag">Nernst</span>
-              <span class="tag">50 kW</span>
-              <span class="tag">370 Cells</span>
+              <span class="tag">Stack</span>
+              <span class="tag">Multi-HJB</span>
             </div>
           </div>
-          <div class="product-card" style="--card-accent: #00ffcc;">
-            <div class="product-icon">♻️</div>
-            <div class="product-title" style="color: #00ffcc;">PRIMEcycle</div>
-            <div class="product-desc">Perovskite module recycling simulator. BOM disassembly, chemical recovery, Pb capture, energy balance, and circular economy plant economics.</div>
+          <div class="product-card" style="--card-accent: #EF5350;">
+            <div class="product-icon">🚀</div>
+            <div class="product-title" style="color: #EF5350;">PRIMEngines</div>
+            <div class="product-desc">Zero-carbon propulsion. NH₃ ICE, PEM fuel cell, H₂ turbine. Brayton-cycle modeling + grid peaking.</div>
             <div class="product-tags">
-              <span class="tag">Circular</span>
-              <span class="tag">Pb Capture</span>
-              <span class="tag">LCA</span>
+              <span class="tag">NH₃/H₂</span>
+              <span class="tag">Zero CO₂</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- SBU 3 -->
+      <!-- DIVISION 2: Eureka Trading -->
       <div style="margin-bottom: 48px;">
-        <h3 style="font-family: var(--font-mono); font-size: 14px; color: var(--accent-purple); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">SBU 3 — Granas Materials Science</h3>
+        <div style="padding: 16px 24px; background: linear-gradient(135deg, rgba(241,196,15,0.08), rgba(241,196,15,0.02)); border: 1px solid rgba(241,196,15,0.2); border-radius: 12px; margin-bottom: 20px;">
+          <div style="font-family: var(--font-mono); font-size: 11px; color: #F1C40F; letter-spacing: 2px; font-weight: 600; margin-bottom: 2px;">DIVISION 2</div>
+          <div style="font-size: 18px; font-weight: 700;">🏛️ Eureka Trading</div>
+          <div style="color: var(--text-muted); font-size: 13px; margin-top: 2px;">VIX-regime volatility targeting · Automated daily signals · 2/20 model</div>
+        </div>
+        <div class="products-grid" style="grid-template-columns: 1fr 1fr;">
+          <div class="product-card" style="--card-accent: #F1C40F;">
+            <div class="product-icon">📈</div>
+            <div class="product-title" style="color: #F1C40F;">Eureka Sovereign</div>
+            <div class="product-desc">VIX-regime volatility targeting with 5-asset allocation (equities, bonds, commodities, crypto, alternatives). GBM simulation + Markowitz + Kelly criterion. Automated daily signals via Telegram.</div>
+            <div class="product-tags">
+              <span class="tag">VIX Regime</span>
+              <span class="tag">5 Assets</span>
+              <span class="tag">Kelly</span>
+              <span class="tag">Telegram</span>
+            </div>
+          </div>
+          <div style="background: var(--bg-card); border: 1px solid rgba(241,196,15,0.15); border-radius: 12px; padding: 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+            <div style="font-size: 48px; margin-bottom: 12px;">📈</div>
+            <div style="font-family: var(--font-mono); font-size: 18px; color: #F1C40F; font-weight: 700;">2 / 20</div>
+            <div style="color: var(--text-muted); font-size: 13px; margin-top: 4px;">2% management + 20% performance</div>
+            <div style="margin-top: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); letter-spacing: 1px;">BACKTESTED SINCE 2010</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIVISION 3: Materials, Engines & Research -->
+      <div>
+        <div style="padding: 16px 24px; background: linear-gradient(135deg, rgba(0,255,136,0.08), rgba(0,255,136,0.02)); border: 1px solid rgba(0,255,136,0.2); border-radius: 12px; margin-bottom: 20px;">
+          <div style="font-family: var(--font-mono); font-size: 11px; color: #00ff88; letter-spacing: 2px; font-weight: 600; margin-bottom: 2px;">DIVISION 3</div>
+          <div style="font-size: 18px; font-weight: 700;">🔬 Materials, Engines & Research</div>
+          <div style="color: var(--text-muted); font-size: 13px; margin-top: 2px;">Granas perovskite suite · Self-Driving Lab · Circular economy · PRIME Kernel</div>
+        </div>
         <div class="products-grid">
           <div class="product-card" style="--card-accent: #8a2be2;">
             <div class="product-icon">🔬</div>
-            <div class="product-title" style="color: #8a2be2;">Optics Engine</div>
-            <div class="product-desc">TMM/Mie optical multilayer simulation for perovskite-silicon tandem cells. AM1.5G spectral optimization with HJB-driven layer thickness tuning.</div>
+            <div class="product-title" style="color: #8a2be2;">Granas Optics</div>
+            <div class="product-desc">TMM/Mie optical multilayer simulation for perovskite-silicon tandems. AM1.5G spectral optimization with HJB-driven layer tuning.</div>
             <div class="product-tags">
               <span class="tag">TMM</span>
               <span class="tag">Mie</span>
@@ -237,17 +265,17 @@
           <div class="product-card" style="--card-accent: #00ffcc;">
             <div class="product-icon">🤖</div>
             <div class="product-title" style="color: #00ffcc;">Self-Driving Lab</div>
-            <div class="product-desc">Bayesian optimization for perovskite fabrication. 6D Gaussian Process + Expected Improvement acquisition for autonomous experiment scheduling.</div>
+            <div class="product-desc">Bayesian optimization for perovskite fabrication. 6D GP + EI acquisition for autonomous experiment scheduling.</div>
             <div class="product-tags">
               <span class="tag">Bayesian</span>
               <span class="tag">6D GP</span>
-              <span class="tag">Active Learning</span>
+              <span class="tag">SDL</span>
             </div>
           </div>
           <div class="product-card" style="--card-accent: #2ecc71;">
             <div class="product-icon">📐</div>
-            <div class="product-title" style="color: #2ecc71;">Blueprint + 7 Engines</div>
-            <div class="product-desc">Master geometric engine plus CFRP structural, ETFE encapsulation, TOPCon silicon, Albedo thermal, GHB catalyst, Scale manufacturing, and Metrics twin.</div>
+            <div class="product-title" style="color: #2ecc71;">10 Granas Engines</div>
+            <div class="product-desc">Blueprint + CFRP + ETFE + TOPCon + Albedo + GHB + Scale + Metrics + PRIMEcycle + SIBO. Full perovskite-silicon tandem stack.</div>
             <div class="product-tags">
               <span class="tag">10 Engines</span>
               <span class="tag">Tandem</span>
@@ -255,46 +283,23 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- SBU 4 -->
-      <div style="margin-bottom: 48px;">
-        <h3 style="font-family: var(--font-mono); font-size: 14px; color: var(--accent-gold); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">SBU 4 — Eureka Trading</h3>
-        <div class="products-grid" style="grid-template-columns: 1fr;">
-          <div class="product-card" style="--card-accent: #F1C40F;">
-            <div class="product-icon">📈</div>
-            <div class="product-title" style="color: #F1C40F;">Eureka Sovereign</div>
-            <div class="product-desc">VIX-regime volatility targeting strategy with 5-asset allocation. Automated daily signals via Telegram, backtested from 2010. GitHub Actions CI/CD dispatch.</div>
-            <div class="product-tags">
-              <span class="tag">VIX Regime</span>
-              <span class="tag">5 Assets</span>
-              <span class="tag">Telegram</span>
-              <span class="tag">Automated</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- SBU 5 -->
-      <div>
-        <h3 style="font-family: var(--font-mono); font-size: 14px; color: var(--text-secondary); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px;">SBU 5 — Platform Infrastructure</h3>
-        <div class="products-grid">
-          <div class="product-card" style="--card-accent: #94a3b8;">
+        <div class="products-grid" style="margin-top: 16px;">
+          <div class="product-card" style="--card-accent: #00ffcc;">
             <div class="product-icon">🧠</div>
-            <div class="product-title">PRIME Kernel</div>
-            <div class="product-desc">Shared IP core providing HJB solver, physics constants, and telemetry primitives used across all 5 SBUs. The connective tissue of the platform.</div>
+            <div class="product-title" style="color: #00ffcc;">PRIME Kernel</div>
+            <div class="product-desc">Shared IP core. HJB solver, physics constants, and telemetry primitives used across all divisions.</div>
             <div class="product-tags">
               <span class="tag">HJB</span>
               <span class="tag">Shared Core</span>
             </div>
           </div>
-          <div class="product-card" style="--card-accent: #94a3b8;">
-            <div class="product-icon">🏭</div>
-            <div class="product-title">PRIMStack</div>
-            <div class="product-desc">Unified plant integrator. Multi-timescale HJB dispatch orchestrating energy flows across solar, wind, H₂, NH₃, grid, and waste heat recovery loops.</div>
+          <div class="product-card" style="--card-accent: #66BB6A;">
+            <div class="product-icon">♻️</div>
+            <div class="product-title" style="color: #66BB6A;">PRIMEcycle</div>
+            <div class="product-desc">Circular economy. 97.3% material recovery, Pb capture, BOM disassembly, and zero-waste perovskite EOL.</div>
             <div class="product-tags">
-              <span class="tag">Plant Control</span>
-              <span class="tag">Multi-Scale</span>
+              <span class="tag">Circular</span>
+              <span class="tag">97.3%</span>
             </div>
           </div>
         </div>
@@ -448,9 +453,18 @@
               <span>Market</span>
             </div>
             <select id="select-market" onchange="updateROI()" style="width:100%;padding:10px;background:var(--bg-card);border:1px solid var(--border);color:var(--text-primary);border-radius:8px;font-family:var(--font-mono);font-size:13px;">
-              <option value="ercot">ERCOT (Texas, USA)</option>
-              <option value="sen">SEN (Mexico)</option>
-              <option value="mibel">MIBEL (Spain / Portugal)</option>
+              <option value="ercot">🇺🇸 ERCOT — Houston Hub (Texas)</option>
+              <option value="ercot_north">🇺🇸 ERCOT — North Hub (DFW)</option>
+              <option value="ercot_south">🇺🇸 ERCOT — South Hub (SA/Austin)</option>
+              <option value="ercot_west">🇺🇸 ERCOT — West Hub (Permian)</option>
+              <option value="sen_mty">🇲🇽 SEN — Monterrey (Noreste)</option>
+              <option value="sen_vza">🇲🇽 SEN — VZA-400 (validated $231K)</option>
+              <option value="sen_gdl">🇲🇽 SEN — Guadalajara (Occidental)</option>
+              <option value="sen_her">🇲🇽 SEN — Hermosillo (Noroeste)</option>
+              <option value="sen_qro">🇲🇽 SEN — Querétaro (Central)</option>
+              <option value="mibel_es">🇪🇸 MIBEL — España</option>
+              <option value="mibel_pt">🇵🇹 MIBEL — Portugal</option>
+              <option value="mibel_sur">🇪🇸 MIBEL — España Sur (Andalucía)</option>
             </select>
           </div>
 
@@ -520,7 +534,7 @@
 
           <div class="contact-detail">
             <div class="contact-detail-icon">📧</div>
-            <span>contact@primenergeia.com</span>
+            <a href="mailto:cordobaurrutia95@gmail.com">cordobaurrutia95@gmail.com</a>
           </div>
           <div class="contact-detail">
             <div class="contact-detail-icon">🌐</div>
@@ -562,14 +576,11 @@
           <div class="form-group">
             <label for="contact-interest">Interest</label>
             <select id="contact-interest" name="interest">
-              <option value="">Select a product area...</option>
-              <option value="grid">Grid Control (SEN/ERCOT/MIBEL)</option>
-              <option value="granas">Granas Materials Science</option>
-              <option value="engines">PRIMEngines (H₂ Turbine / PEM)</option>
-              <option value="battery">Battery BESS</option>
-              <option value="eureka">Eureka Trading</option>
+              <option value="">Select a division...</option>
+              <option value="grid">⚡ Grid Control & Energy (ERCOT/SEN/MIBEL)</option>
+              <option value="eureka">🏛️ Eureka Trading</option>
+              <option value="materials">🔬 Materials, Engines & Research</option>
               <option value="enterprise">Enterprise / Custom</option>
-              <option value="api">API Access</option>
             </select>
           </div>
           <div class="form-group">

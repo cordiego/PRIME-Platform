@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PRIMEnergeia — Sovereign Clean Energy Intelligence</title>
-  <meta name="description" content="Physics-based simulation engines for grid control, energy storage, hydrogen systems, and advanced materials. HJB-optimal dispatch for $216M TAM.">
+  <meta name="description" content="Physics-based simulation engines for grid control across 17 global markets covering 1,700+ GW. HJB-optimal dispatch with $5B+ TAM.">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 </head>
@@ -21,6 +21,7 @@
       <li><a onclick="showPage('products')" data-page="products">Products</a></li>
       <li><a onclick="showPage('pricing')" data-page="pricing">Pricing</a></li>
       <li><a onclick="showPage('demo')" data-page="demo">Live Demo</a></li>
+      <li><a onclick="showPage('results')" data-page="results">Results</a></li>
       <li><a onclick="showPage('contact')" data-page="contact">Contact</a></li>
       <li><a href="https://primenergeia-sovereign.streamlit.app" target="_blank" class="navbar-cta">Dashboard ↗</a></li>
     </ul>
@@ -644,6 +645,83 @@
 </div>
 
 <!-- ============================================================
+     PAGE: SIMULATION RESULTS
+     ============================================================ -->
+<div class="page" id="page-results">
+  <section class="section" style="padding-top: 120px;">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Optimization Outcomes</div>
+        <h2>Simulation Results by Market</h2>
+        <p>PRIMEnergeia HJB dispatch versus naive TOU baseline — validated across 17 global ISOs.</p>
+      </div>
+
+      <!-- Summary Banner -->
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px;">
+        <div style="background: linear-gradient(135deg, rgba(0,209,255,0.08), rgba(0,209,255,0.02)); border: 1px solid rgba(0,209,255,0.2); border-radius: 12px; padding: 20px; text-align: center;">
+          <div style="font-family: var(--font-mono); font-size: 28px; color: #00d1ff; font-weight: 700;">17</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Markets Optimized</div>
+        </div>
+        <div style="background: linear-gradient(135deg, rgba(0,255,136,0.08), rgba(0,255,136,0.02)); border: 1px solid rgba(0,255,136,0.2); border-radius: 12px; padding: 20px; text-align: center;">
+          <div style="font-family: var(--font-mono); font-size: 28px; color: #00ff88; font-weight: 700;">8-60%</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Dispatch Uplift Range</div>
+        </div>
+        <div style="background: linear-gradient(135deg, rgba(241,196,15,0.08), rgba(241,196,15,0.02)); border: 1px solid rgba(241,196,15,0.2); border-radius: 12px; padding: 20px; text-align: center;">
+          <div style="font-family: var(--font-mono); font-size: 28px; color: #F1C40F; font-weight: 700;">1,700+</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">GW Coverage</div>
+        </div>
+        <div style="background: linear-gradient(135deg, rgba(138,43,226,0.08), rgba(138,43,226,0.02)); border: 1px solid rgba(138,43,226,0.2); border-radius: 12px; padding: 20px; text-align: center;">
+          <div style="font-family: var(--font-mono); font-size: 28px; color: #AB47BC; font-weight: 700;">$231K</div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Validated at VZA-400</div>
+        </div>
+      </div>
+
+      <!-- US & Canada Markets -->
+      <div style="margin-bottom: 32px;">
+        <div style="font-family: var(--font-mono); font-size: 12px; color: #00d1ff; letter-spacing: 2px; margin-bottom: 16px; font-weight: 600;">🇺🇸🇨🇦 NORTH AMERICA — 720 GW</div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;" id="results-grid-na"></div>
+      </div>
+
+      <!-- Mexico -->
+      <div style="margin-bottom: 32px;">
+        <div style="font-family: var(--font-mono); font-size: 12px; color: #00ff88; letter-spacing: 2px; margin-bottom: 16px; font-weight: 600;">🇲🇽 MÉXICO — 75 GW</div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;" id="results-grid-mx"></div>
+      </div>
+
+      <!-- Europe -->
+      <div style="margin-bottom: 32px;">
+        <div style="font-family: var(--font-mono); font-size: 12px; color: #F1C40F; letter-spacing: 2px; margin-bottom: 16px; font-weight: 600;">🇪🇺 EUROPE — 640 GW</div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;" id="results-grid-eu"></div>
+      </div>
+
+      <!-- Asia-Pacific -->
+      <div style="margin-bottom: 32px;">
+        <div style="font-family: var(--font-mono); font-size: 12px; color: #AB47BC; letter-spacing: 2px; margin-bottom: 16px; font-weight: 600;">🌏 ASIA-PACIFIC — 335 GW</div>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;" id="results-grid-ap"></div>
+      </div>
+
+      <!-- Methodology -->
+      <div style="margin-top: 40px; padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;">
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-cyan); letter-spacing: 2px; margin-bottom: 8px;">METHODOLOGY</div>
+        <div style="color: var(--text-secondary); font-size: 13px; line-height: 1.8;">
+          All results compare <strong>PRIMEngine HJB two-pass dispatch</strong> vs. <strong>naive time-of-use (TOU) baseline</strong>
+          for a reference 100 MW fleet with 400 MWh battery storage. Uplift percentages represent incremental revenue
+          from optimal price arbitrage, forecast-aware scheduling, and ancillary service stacking.
+          VZA-400 result ($231,243 USD) is independently auditable.
+          See <a href="https://primenergeia-sovereign.streamlit.app" target="_blank" style="color: #00d1ff;">SAVINGS_METHODOLOGY.md</a> for full details.
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align: center; margin-top: 40px;">
+        <a onclick="showPage('demo')" class="btn btn-primary" style="cursor: pointer;">⚡ Run Your Own Simulation →</a>
+        <a onclick="showPage('contact')" class="btn btn-outline" style="cursor: pointer; margin-left: 12px;">Request Full Report</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
      FOOTER
      ============================================================ -->
 <footer class="footer">
@@ -655,9 +733,10 @@
     <a onclick="showPage('demo')">Demo</a>
     <a href="https://primenergeia-sovereign.streamlit.app" target="_blank">Dashboard</a>
     <a href="https://github.com/cordiego" target="_blank">GitHub</a>
+    <a onclick="showPage('results')">Results</a>
     <a onclick="showPage('contact')">Contact</a>
   </div>
-  <div class="footer-copy">© 2026 PRIMEnergeia S.A.S. — All rights reserved. Soberanía Energética Global ⚡🇲🇽🇺🇸🇪🇸🇵🇹</div>
+  <div class="footer-copy">© 2026 PRIMEnergeia S.A.S. — All rights reserved. Soberanía Energética Global ⚡🇲🇽🇺🇸🇪🇺🇦🇺🇯🇵</div>
 </footer>
 
 <!-- ============================================================

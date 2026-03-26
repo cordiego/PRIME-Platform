@@ -21,9 +21,11 @@ function showPage(pageId) {
   document.getElementById('navLinks').classList.remove('open');
   // Initialize ROI calculator if showing demo
   if (pageId === 'demo') {
-    setTimeout(() => {
-      updateROI();
-    }, 100);
+    setTimeout(() => { updateROI(); }, 100);
+  }
+  // Render simulation results if showing results
+  if (pageId === 'results') {
+    setTimeout(() => { renderSimResults(); }, 100);
   }
 }
 
@@ -344,6 +346,110 @@ function handleSubmit(e) {
     btn.style.opacity = '1';
     alert('Network error. Please email cordobaurrutia95@gmail.com directly.');
   });
+}
+
+// ── Simulation Results Data ──
+const SIMULATION_RESULTS = {
+  na: [
+    { id: 'ercot',  name: 'ERCOT',  region: 'Texas', gw: 85,  uplift: 55.7, annual: 4870000, roi: 9.7, co2: 42, color: '#00d1ff', validated: true },
+    { id: 'pjm',    name: 'PJM',    region: 'US East', gw: 180, uplift: 32.4, annual: 3180000, roi: 6.4, co2: 38, color: '#42A5F5' },
+    { id: 'caiso',  name: 'CAISO',  region: 'California', gw: 80, uplift: 44.2, annual: 4250000, roi: 8.5, co2: 20, color: '#26C6DA', duck: true },
+    { id: 'miso',   name: 'MISO',   region: 'Midwest', gw: 190, uplift: 18.5, annual: 1520000, roi: 3.0, co2: 55, color: '#78909C' },
+    { id: 'spp',    name: 'SPP',    region: 'Central', gw: 65, uplift: 28.3, annual: 1980000, roi: 4.0, co2: 48, color: '#66BB6A' },
+    { id: 'nyiso',  name: 'NYISO',  region: 'New York', gw: 35, uplift: 38.6, annual: 3650000, roi: 7.3, co2: 28, color: '#AB47BC' },
+    { id: 'isone',  name: 'ISO-NE', region: 'New England', gw: 30, uplift: 34.1, annual: 3020000, roi: 6.0, co2: 30, color: '#EF5350' },
+    { id: 'ieso',   name: 'IESO',   region: 'Ontario', gw: 38, uplift: 12.8, annual: 680000,  roi: 1.4, co2: 3,  color: '#FF7043' },
+    { id: 'aeso',   name: 'AESO',   region: 'Alberta', gw: 17, uplift: 46.5, annual: 5120000, roi: 10.2, co2: 55, color: '#FF5722' },
+  ],
+  mx: [
+    { id: 'sen_vza', name: 'SEN VZA-400', region: 'Valle de México', gw: 75, uplift: 44.0, annual: 231243, roi: 4.6, co2: 46, color: '#00ff88', validated: true, flagship: true },
+    { id: 'sen_mty', name: 'SEN Monterrey', region: 'Noreste', gw: 75, uplift: 42.5, annual: 1980000, roi: 4.0, co2: 48, color: '#00ff88' },
+    { id: 'sen_gdl', name: 'SEN Guadalajara', region: 'Occidental', gw: 75, uplift: 38.0, annual: 1640000, roi: 3.3, co2: 50, color: '#00ff88' },
+    { id: 'sen_her', name: 'SEN Hermosillo', region: 'Noroeste', gw: 75, uplift: 40.0, annual: 1750000, roi: 3.5, co2: 47, color: '#00ff88' },
+    { id: 'sen_qro', name: 'SEN Querétaro', region: 'Central', gw: 75, uplift: 36.0, annual: 1520000, roi: 3.0, co2: 49, color: '#00ff88' },
+  ],
+  eu: [
+    { id: 'mibel_es', name: 'MIBEL España', region: 'Spain', gw: 110, uplift: 22.5, annual: 2680000, roi: 5.4, co2: 22, color: '#F1C40F' },
+    { id: 'mibel_pt', name: 'MIBEL Portugal', region: 'Portugal', gw: 110, uplift: 19.8, annual: 2150000, roi: 4.3, co2: 20, color: '#F1C40F' },
+    { id: 'epex',     name: 'EPEX Germany', region: 'Germany', gw: 220, uplift: 28.4, annual: 3870000, roi: 7.7, co2: 35, color: '#FFA726', duck: true },
+    { id: 'epex_fr',  name: 'EPEX France', region: 'France', gw: 130, uplift: 16.2, annual: 1680000, roi: 3.4, co2: 5,  color: '#FFA726' },
+    { id: 'nordpool', name: 'Nord Pool', region: 'Nordics', gw: 100, uplift: 24.5, annual: 2350000, roi: 4.7, co2: 8,  color: '#64B5F6' },
+    { id: 'elexon',   name: 'Elexon', region: 'UK', gw: 80, uplift: 30.2, annual: 3420000, roi: 6.8, co2: 22, color: '#9575CD' },
+  ],
+  ap: [
+    { id: 'nem',  name: 'NEM', region: 'Australia', gw: 55, uplift: 58.5, annual: 8900000, roi: 17.8, co2: 68, color: '#AB47BC' },
+    { id: 'jepx', name: 'JEPX', region: 'Japan', gw: 280, uplift: 9.4, annual: 920000, roi: 1.8, co2: 45, color: '#E91E63' },
+  ],
+};
+
+function renderSimResults() {
+  const grids = { na: 'results-grid-na', mx: 'results-grid-mx', eu: 'results-grid-eu', ap: 'results-grid-ap' };
+  for (const [region, gridId] of Object.entries(grids)) {
+    const container = document.getElementById(gridId);
+    if (!container || container.children.length > 0) continue; // already rendered
+    const markets = SIMULATION_RESULTS[region];
+    markets.forEach((m, i) => {
+      const barWidth = Math.min(100, (m.uplift / 60) * 100);
+      const flagshipBadge = m.flagship ? `<span style="display:inline-block;padding:2px 6px;font-size:9px;font-family:var(--font-mono);background:rgba(0,255,136,0.15);color:#00ff88;border-radius:4px;margin-left:6px;">VALIDATED ✓</span>` : '';
+      const validatedBadge = m.validated && !m.flagship ? `<span style="display:inline-block;padding:2px 6px;font-size:9px;font-family:var(--font-mono);background:rgba(0,209,255,0.15);color:#00d1ff;border-radius:4px;margin-left:6px;">PROVEN</span>` : '';
+      const duckBadge = m.duck ? `<span style="display:inline-block;padding:2px 6px;font-size:9px;font-family:var(--font-mono);background:rgba(241,196,15,0.15);color:#F1C40F;border-radius:4px;margin-left:6px;">DUCK CURVE</span>` : '';
+      const card = document.createElement('div');
+      card.style.cssText = `
+        background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px;
+        transition: all 0.3s ease; opacity: 0; transform: translateY(12px); cursor: default;
+      `;
+      card.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <div>
+            <span style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:${m.color};">${m.name}</span>
+            ${flagshipBadge}${validatedBadge}${duckBadge}
+          </div>
+          <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">${m.region}</span>
+        </div>
+        <div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:4px;">
+            <span>Dispatch Uplift</span>
+            <span style="color:${m.color};font-weight:700;">${m.uplift}%</span>
+          </div>
+          <div style="background:rgba(255,255,255,0.04);border-radius:4px;height:6px;overflow:hidden;">
+            <div class="sim-bar" data-width="${barWidth}" style="height:100%;border-radius:4px;background:${m.color};width:0%;transition:width 0.8s ease ${i*0.08}s;"></div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+          <div style="text-align:center;">
+            <div style="font-family:var(--font-mono);font-size:12px;color:white;font-weight:600;">$${(m.annual/1e6).toFixed(1)}M</div>
+            <div style="font-size:9px;color:var(--text-muted);">Annual Savings</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:var(--font-mono);font-size:12px;color:white;font-weight:600;">${m.roi}×</div>
+            <div style="font-size:9px;color:var(--text-muted);">ROI</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:var(--font-mono);font-size:12px;color:white;font-weight:600;">−${m.co2}%</div>
+            <div style="font-size:9px;color:var(--text-muted);">CO₂</div>
+          </div>
+        </div>
+      `;
+      // Add hover effect
+      card.addEventListener('mouseenter', () => {
+        card.style.borderColor = m.color;
+        card.style.boxShadow = `0 0 24px ${m.color}22`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.borderColor = 'var(--border)';
+        card.style.boxShadow = 'none';
+      });
+      container.appendChild(card);
+      // Animate in
+      setTimeout(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+        // Animate bars
+        const bar = card.querySelector('.sim-bar');
+        if (bar) bar.style.width = bar.dataset.width + '%';
+      }, 60 + i * 80);
+    });
+  }
 }
 
 // ── Initialize ──

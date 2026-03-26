@@ -40,7 +40,7 @@
     <div class="hero-content">
       <div class="hero-badge">Sovereign Clean Energy Intelligence</div>
       <h1>The Brain the Grid Has Been Missing</h1>
-      <p>HJB-optimal dispatch reduces grid operating costs by 8-15%. Mathematically provable. Not heuristics. Not black-box ML. PRIMEngine solves for the optimal dispatch — every minute, every node, every asset — across ERCOT, SEN, and MIBEL markets.</p>
+      <p>HJB-optimal dispatch reduces grid operating costs by 8-15%. Mathematically provable. Not heuristics. Not black-box ML. PRIMEngine solves for the optimal dispatch — every minute, every node, every asset — fed by <strong>live settlement prices</strong> from ERCOT, SEN, and MIBEL markets.</p>
       <div class="hero-cta-group">
         <a class="btn btn-primary" onclick="showPage('demo')">Try Live Demo →</a>
         <a class="btn btn-secondary" onclick="showPage('products')">View Products</a>
@@ -59,8 +59,8 @@
           <div class="hero-stat-label">Dispatch Cost Savings</div>
         </div>
         <div>
-          <div class="hero-stat-value">25x</div>
-          <div class="hero-stat-label">Customer ROI</div>
+          <div class="hero-stat-value">47</div>
+          <div class="hero-stat-label">Real Data Nodes</div>
         </div>
       </div>
     </div>
@@ -101,6 +101,35 @@
           <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Module Recycling & Pb Capture</div>
         </div>
       </div>
+
+      <!-- Live Market Telemetry -->
+      <div style="margin-top: 48px; padding: 32px; background: linear-gradient(135deg, rgba(0,209,255,0.05), rgba(0,255,136,0.05)); border: 1px solid rgba(0,209,255,0.15); border-radius: 16px;">
+        <div style="text-align: center; margin-bottom: 24px;">
+          <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-cyan); letter-spacing: 2px; font-weight: 600; margin-bottom: 4px;">NOW LIVE</div>
+          <div style="font-size: 20px; font-weight: 700;">Real-Time Market Data Integration</div>
+          <div style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">No synthetic data. Every optimization runs on real settlement prices.</div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+          <div style="background: rgba(0,0,0,0.2); border: 1px solid rgba(0,209,255,0.2); border-radius: 12px; padding: 20px; text-align: center;">
+            <div style="font-size: 24px; margin-bottom: 8px;">🇺🇸</div>
+            <div style="font-family: var(--font-mono); font-size: 14px; color: #00d1ff; font-weight: 600;">ERCOT</div>
+            <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">5 trading hubs · gridstatus API</div>
+            <div style="font-size: 12px; color: var(--text-muted);">SPP + LMP settlement</div>
+          </div>
+          <div style="background: rgba(0,0,0,0.2); border: 1px solid rgba(0,255,136,0.2); border-radius: 12px; padding: 20px; text-align: center;">
+            <div style="font-size: 24px; margin-bottom: 8px;">🇲🇽</div>
+            <div style="font-family: var(--font-mono); font-size: 14px; color: #00ff88; font-weight: 600;">SEN / CENACE</div>
+            <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">30 nodos · 9 regions</div>
+            <div style="font-size: 12px; color: var(--text-muted);">PML 15-min intervals</div>
+          </div>
+          <div style="background: rgba(0,0,0,0.2); border: 1px solid rgba(241,196,15,0.2); border-radius: 12px; padding: 20px; text-align: center;">
+            <div style="font-size: 24px; margin-bottom: 8px;">🇪🇸🇵🇹</div>
+            <div style="font-family: var(--font-mono); font-size: 14px; color: #F1C40F; font-weight: 600;">MIBEL / OMIE</div>
+            <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">5 zones · ENTSO-E ready</div>
+            <div style="font-size: 12px; color: var(--text-muted);">DA + intraday sessions</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </div>
@@ -124,7 +153,7 @@
           <div class="product-card" style="--card-accent: #00d1ff;">
             <div class="product-icon">⚡</div>
             <div class="product-title" style="color: #00d1ff;">Grid Control</div>
-            <div class="product-desc">HJB frequency regulation across SEN 🇲🇽, ERCOT 🇺🇸, and MIBEL 🇪🇸🇵🇹 markets. Real-time optimal dispatch with physics-constrained state estimation.</div>
+            <div class="product-desc">HJB frequency regulation across SEN 🇲🇽, ERCOT 🇺🇸, and MIBEL 🇪🇸🇵🇹 markets. Fed by live settlement prices — 47 real data nodes with 15-min resolution.</div>
             <div class="product-tags">
               <span class="tag">HJB</span>
               <span class="tag">3 Markets</span>
@@ -283,7 +312,7 @@
       <div class="section-header">
         <div class="section-badge">Pricing</div>
         <h2>You Only Pay When We Make You Money</h2>
-        <p>25% of incremental revenue generated. Backtest-validated: 55.7% dispatch uplift vs naive TOU. If we don't improve your returns, you pay nothing.</p>
+        <p>25% of incremental revenue generated. Backtest-validated on real settlement prices: 55.7% dispatch uplift vs naive TOU. Transparent savings methodology with independent verification. If we don't improve your returns, you pay nothing.</p>
       </div>
 
       <div class="pricing-grid">
@@ -295,7 +324,7 @@
           <ul class="pricing-features">
             <li>Starting fee: $0</li>
             <li>90-day free trial</li>
-            <li>Single market (ERCOT or SEN)</li>
+            <li>Single market (ERCOT, SEN, or MIBEL)</li>
             <li>Full optimization engine access</li>
             <li>Savings report at day 90</li>
             <li>No commitment, no credit card</li>

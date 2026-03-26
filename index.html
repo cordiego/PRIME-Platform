@@ -705,7 +705,9 @@
         <div style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-cyan); letter-spacing: 2px; margin-bottom: 8px;">METHODOLOGY</div>
         <div style="color: var(--text-secondary); font-size: 13px; line-height: 1.8;">
           All results compare <strong>PRIMEngine HJB two-pass dispatch</strong> vs. <strong>naive time-of-use (TOU) baseline</strong>
-          for a reference 100 MW fleet with 400 MWh battery storage. Uplift percentages represent incremental revenue
+          for a reference 100 MW fleet with 400 MWh battery storage. DC-AC conversion losses modeled via
+          <strong>PRIME-PowerElectronics</strong> (InverterModel η=98.5%, RectifierModel η=98.5%, system RTE=89.5%).
+          Uplift percentages represent incremental revenue
           from optimal price arbitrage, forecast-aware scheduling, and ancillary service stacking.
           VZA-400 result ($231,243 USD) is independently auditable.
           See <a href="https://primenergeia-sovereign.streamlit.app" target="_blank" style="color: #00d1ff;">SAVINGS_METHODOLOGY.md</a> for full details.

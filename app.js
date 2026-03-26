@@ -119,7 +119,12 @@ function calculateROI(fleetMW, costPerMWh, batteryMWh, capacityFactor, market) {
 
   // Client's current revenue (naive TOU: charge at night, discharge at peak)
   const cyclesPerDay = Math.min(2, batteryMWh / (fleetMW * 4));  // cycles limited by battery size
-  const dischargeMWhPerDay = batteryMWh * cyclesPerDay * 0.88;  // roundtrip efficiency
+  // Power electronics: inverter η=98.5% (discharge DC→AC) × rectifier η=98.5% (charge AC→DC) × cell RTE=92%
+  const inverterEta = 0.985;   // PRIME-PowerElectronics InverterModel (BESS preset, 50% load)
+  const rectifierEta = 0.985;  // PRIME-PowerElectronics RectifierModel
+  const cellRTE = 0.92;        // LFP round-trip efficiency
+  const systemRTE = cellRTE * inverterEta * rectifierEta;  // ~0.895
+  const dischargeMWhPerDay = batteryMWh * cyclesPerDay * systemRTE;
   const naiveRevPerDay = dischargeMWhPerDay * mp.avgLMP * 1.8;  // peak markup
   const naiveChargePerDay = dischargeMWhPerDay * mp.avgLMP * 0.4; // overnight cheap
   const naiveAnnual = (naiveRevPerDay - naiveChargePerDay) * 365;
@@ -185,6 +190,8 @@ function calculateROI(fleetMW, costPerMWh, batteryMWh, capacityFactor, market) {
     savingsPct: mp.upliftPct,
     batteryLifeExt, co2Avoided,
     hourlyBaseline, hourlyOptimized,
+    systemRTE: (systemRTE * 100).toFixed(1),
+    inverterEta: (inverterEta * 100).toFixed(1),
   };
 
 }

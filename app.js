@@ -74,16 +74,41 @@ const MARKET_PARAMS = {
   ercot_north: { avgLMP: 52, spreadRatio: 30.0, upliftPct: 50.2, ancillaryRate: 11, currency: 'USD', co2Factor: 0.42 },
   ercot_south: { avgLMP: 48, spreadRatio: 25.0, upliftPct: 48.0, ancillaryRate: 10, currency: 'USD', co2Factor: 0.40 },
   ercot_west:  { avgLMP: 65, spreadRatio: 42.0, upliftPct: 60.0, ancillaryRate: 14, currency: 'USD', co2Factor: 0.45 },
-  // SEN nodes
+  // PJM (US East — 180 GW)
+  pjm:         { avgLMP: 42, spreadRatio: 18.0, upliftPct: 38.0, ancillaryRate: 15, currency: 'USD', co2Factor: 0.38 },
+  pjm_comed:   { avgLMP: 38, spreadRatio: 15.0, upliftPct: 35.0, ancillaryRate: 14, currency: 'USD', co2Factor: 0.40 },
+  pjm_peco:    { avgLMP: 45, spreadRatio: 20.0, upliftPct: 40.0, ancillaryRate: 16, currency: 'USD', co2Factor: 0.36 },
+  // CAISO (California — 80 GW)
+  caiso:       { avgLMP: 55, spreadRatio: 25.0, upliftPct: 48.0, ancillaryRate: 18, currency: 'USD', co2Factor: 0.20 },
+  caiso_np15:  { avgLMP: 50, spreadRatio: 22.0, upliftPct: 45.0, ancillaryRate: 16, currency: 'USD', co2Factor: 0.18 },
+  // MISO (Midwest — 190 GW)
+  miso:        { avgLMP: 35, spreadRatio: 12.0, upliftPct: 32.0, ancillaryRate: 8,  currency: 'USD', co2Factor: 0.55 },
+  // SPP (Central — 65 GW)
+  spp:         { avgLMP: 30, spreadRatio: 15.0, upliftPct: 35.0, ancillaryRate: 7,  currency: 'USD', co2Factor: 0.48 },
+  // NYISO (New York — 35 GW)
+  nyiso:       { avgLMP: 48, spreadRatio: 22.0, upliftPct: 42.0, ancillaryRate: 20, currency: 'USD', co2Factor: 0.28 },
+  // ISONE (New England — 30 GW)
+  isone:       { avgLMP: 52, spreadRatio: 20.0, upliftPct: 40.0, ancillaryRate: 18, currency: 'USD', co2Factor: 0.30 },
+  // Canada
+  ieso:        { avgLMP: 28, spreadRatio: 8.0,  upliftPct: 28.0, ancillaryRate: 5,  currency: 'CAD', co2Factor: 0.03 },
+  aeso:        { avgLMP: 65, spreadRatio: 30.0, upliftPct: 52.0, ancillaryRate: 12, currency: 'CAD', co2Factor: 0.55 },
+  // SEN nodes (México)
   sen_mty:     { avgLMP: 48, spreadRatio: 14.0, upliftPct: 42.5, ancillaryRate: 8, currency: 'USD', co2Factor: 0.48 },
   sen_vza:     { avgLMP: 45, spreadRatio: 15.5, upliftPct: 44.0, ancillaryRate: 7, currency: 'USD', co2Factor: 0.46 },
   sen_gdl:     { avgLMP: 43, spreadRatio: 11.0, upliftPct: 38.0, ancillaryRate: 7, currency: 'USD', co2Factor: 0.50 },
   sen_her:     { avgLMP: 46, spreadRatio: 13.0, upliftPct: 40.0, ancillaryRate: 8, currency: 'USD', co2Factor: 0.47 },
   sen_qro:     { avgLMP: 42, spreadRatio: 10.5, upliftPct: 36.0, ancillaryRate: 6, currency: 'USD', co2Factor: 0.49 },
-  // MIBEL zones
+  // MIBEL zones (Iberia)
   mibel_es:    { avgLMP: 62, spreadRatio: 9.0,  upliftPct: 45.0, ancillaryRate: 15, currency: 'EUR', co2Factor: 0.22 },
   mibel_pt:    { avgLMP: 58, spreadRatio: 7.5,  upliftPct: 42.0, ancillaryRate: 13, currency: 'EUR', co2Factor: 0.20 },
-  mibel_sur:   { avgLMP: 55, spreadRatio: 8.0,  upliftPct: 48.0, ancillaryRate: 14, currency: 'EUR', co2Factor: 0.18 },
+  // European (ENTSO-E)
+  epex:        { avgLMP: 70, spreadRatio: 12.0, upliftPct: 38.0, ancillaryRate: 20, currency: 'EUR', co2Factor: 0.35 },
+  epex_fr:     { avgLMP: 55, spreadRatio: 10.0, upliftPct: 35.0, ancillaryRate: 18, currency: 'EUR', co2Factor: 0.05 },
+  nordpool:    { avgLMP: 45, spreadRatio: 14.0, upliftPct: 40.0, ancillaryRate: 16, currency: 'EUR', co2Factor: 0.08 },
+  elexon:      { avgLMP: 60, spreadRatio: 15.0, upliftPct: 42.0, ancillaryRate: 22, currency: 'GBP', co2Factor: 0.22 },
+  // Asia-Pacific
+  nem:         { avgLMP: 80, spreadRatio: 40.0, upliftPct: 55.0, ancillaryRate: 25, currency: 'AUD', co2Factor: 0.68 },
+  jepx:        { avgLMP: 50, spreadRatio: 8.0,  upliftPct: 30.0, ancillaryRate: 10, currency: 'JPY', co2Factor: 0.45 },
 };
 
 function calculateROI(fleetMW, costPerMWh, batteryMWh, capacityFactor, market) {

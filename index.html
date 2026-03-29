@@ -1036,28 +1036,29 @@
       <!-- ─── SAMPLE DATA PREVIEW ─── -->
       <div style="margin-top: 64px;">
         <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-green); letter-spacing: 2px; margin-bottom: 20px; font-weight: 600;">SAMPLE OUTPUT PREVIEW</div>
-        <div style="padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;">
+
+        <!-- Tab buttons -->
+        <div style="display: flex; gap: 4px; margin-bottom: 0; flex-wrap: wrap;" id="sampleTabs">
+          <button onclick="switchSampleTab('dispatch')" class="sample-tab active" data-tab="dispatch" style="padding: 10px 18px; background: var(--bg-card); border: 1px solid var(--accent-cyan); border-bottom: none; border-radius: 8px 8px 0 0; color: var(--accent-cyan); font-family: var(--font-mono); font-size: 11px; font-weight: 600; cursor: pointer; letter-spacing: 0.5px; transition: all 0.3s;">⚡ Dispatch</button>
+          <button onclick="switchSampleTab('frequency')" class="sample-tab" data-tab="frequency" style="padding: 10px 18px; background: var(--bg-card); border: 1px solid var(--border); border-bottom: none; border-radius: 8px 8px 0 0; color: var(--text-muted); font-family: var(--font-mono); font-size: 11px; font-weight: 600; cursor: pointer; letter-spacing: 0.5px; transition: all 0.3s;">🌊 Frequency</button>
+          <button onclick="switchSampleTab('ancillary')" class="sample-tab" data-tab="ancillary" style="padding: 10px 18px; background: var(--bg-card); border: 1px solid var(--border); border-bottom: none; border-radius: 8px 8px 0 0; color: var(--text-muted); font-family: var(--font-mono); font-size: 11px; font-weight: 600; cursor: pointer; letter-spacing: 0.5px; transition: all 0.3s;">🛡️ Ancillary</button>
+          <button onclick="switchSampleTab('battery')" class="sample-tab" data-tab="battery" style="padding: 10px 18px; background: var(--bg-card); border: 1px solid var(--border); border-bottom: none; border-radius: 8px 8px 0 0; color: var(--text-muted); font-family: var(--font-mono); font-size: 11px; font-weight: 600; cursor: pointer; letter-spacing: 0.5px; transition: all 0.3s;">🔋 Battery</button>
+          <button onclick="switchSampleTab('bids')" class="sample-tab" data-tab="bids" style="padding: 10px 18px; background: var(--bg-card); border: 1px solid var(--border); border-bottom: none; border-radius: 8px 8px 0 0; color: var(--text-muted); font-family: var(--font-mono); font-size: 11px; font-weight: 600; cursor: pointer; letter-spacing: 0.5px; transition: all 0.3s;">🎯 Market Bids</button>
+          <button onclick="switchSampleTab('forecast')" class="sample-tab" data-tab="forecast" style="padding: 10px 18px; background: var(--bg-card); border: 1px solid var(--border); border-bottom: none; border-radius: 8px 8px 0 0; color: var(--text-muted); font-family: var(--font-mono); font-size: 11px; font-weight: 600; cursor: pointer; letter-spacing: 0.5px; transition: all 0.3s;">🔮 Forecast</button>
+        </div>
+
+        <div style="padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 0 16px 16px 16px;">
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-            <div style="font-family: var(--font-mono); font-size: 14px; font-weight: 600;">⚡ dispatch_schedule_ercot.csv</div>
+            <div style="font-family: var(--font-mono); font-size: 14px; font-weight: 600;" id="sampleFileName">⚡ dispatch_schedule_ercot.csv</div>
             <span class="live-indicator"><span class="live-dot"></span> Sample Data</span>
           </div>
           <div style="overflow-x: auto;">
-            <table id="sampleOutputTable" style="width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 12px;">
-              <thead>
-                <tr style="border-bottom: 2px solid var(--border);">
-                  <th style="text-align: left; padding: 10px 12px; color: var(--accent-cyan); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Hour</th>
-                  <th style="text-align: left; padding: 10px 12px; color: var(--accent-cyan); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Strategy</th>
-                  <th style="text-align: right; padding: 10px 12px; color: var(--accent-cyan); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Dispatch MW</th>
-                  <th style="text-align: right; padding: 10px 12px; color: var(--accent-cyan); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">DA $/MWh</th>
-                  <th style="text-align: right; padding: 10px 12px; color: var(--accent-cyan); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">RT $/MWh</th>
-                  <th style="text-align: right; padding: 10px 12px; color: var(--accent-cyan); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">SOC %</th>
-                  <th style="text-align: right; padding: 10px 12px; color: var(--accent-cyan); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Revenue $</th>
-                </tr>
-              </thead>
+            <table style="width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 12px;">
+              <thead id="sampleTableHead"></thead>
               <tbody id="sampleOutputBody"></tbody>
             </table>
           </div>
-          <div style="margin-top: 16px; text-align: center; color: var(--text-muted); font-size: 12px;">
+          <div style="margin-top: 16px; text-align: center; color: var(--text-muted); font-size: 12px;" id="sampleFooter">
             Showing 24-hour HJB-optimized dispatch for 100 MW fleet / 400 MWh BESS — ERCOT Houston Hub
           </div>
         </div>

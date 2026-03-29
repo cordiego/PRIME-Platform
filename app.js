@@ -463,66 +463,191 @@ function renderSimResults() {
   }
 }
 
-// ── Grid Outputs — Sample Data Generator ──
-function renderSampleOutputs() {
+// ── Grid Outputs — Multi-Tab Sample Data ──
+const SAMPLE_DATA = {
+  dispatch: {
+    file: '⚡ dispatch_schedule_ercot.csv',
+    footer: '24-hour HJB-optimized dispatch for 100 MW fleet / 400 MWh BESS — ERCOT Houston Hub',
+    cols: ['Hour', 'Strategy', 'Dispatch MW', 'DA $/MWh', 'RT $/MWh', 'SOC %', 'Revenue $'],
+    align: ['left','left','right','right','right','right','right'],
+    rows: [
+      ['00:00','CHARGE',-100,22.4,19.8,55.0,-1980],['01:00','CHARGE',-100,18.6,16.2,67.5,-1620],
+      ['02:00','CHARGE',-100,15.3,14.1,80.0,-1410],['03:00','CHARGE',-100,14.8,13.5,92.5,-1350],
+      ['04:00','CHARGE',-100,16.1,15.0,95.0,-1500],['05:00','HOLD+AS',0,20.5,19.2,95.0,180],
+      ['06:00','HOLD+AS',0,28.3,27.1,95.0,203],['07:00','HOLD+AS',0,35.6,38.2,95.0,286],
+      ['08:00','HOLD+AS',0,42.1,44.8,95.0,336],['09:00','HOLD+AS',0,48.3,46.5,95.0,349],
+      ['14:00','DISCHARGE',100,78.3,85.2,82.5,8520],['15:00','DISCHARGE',100,95.1,112.4,70.0,11240],
+      ['16:00','DISCHARGE',100,142.6,178.3,57.5,17830],['17:00','DISCHARGE',100,189.4,245.7,45.0,24570],
+      ['18:00','DISCHARGE',100,156.2,168.9,32.5,16890],['19:00','DISCHARGE',100,98.5,105.3,20.0,10530],
+      ['20:00','HOLD+AS',0,68.4,65.2,20.0,489],['23:00','HOLD+AS',0,28.2,25.1,20.0,188],
+    ],
+    fmt: (v, ci) => {
+      if (ci === 1) return `<span style="color:${v==='CHARGE'?'#ef4444':v==='DISCHARGE'?'#22c55e':'#64748b'};font-weight:600">${v}</span>`;
+      if (ci === 2) return `<span style="color:${v<0?'#ef4444':v>0?'#22c55e':'#64748b'};font-weight:600">${v>0?'+':''}${v}</span>`;
+      if (ci === 4) return `<span style="color:${v>100?'#FFD700':'var(--text-secondary)'};${v>100?'font-weight:700':''}">` + (v>100?'⚡ ':'') + '$'+v.toFixed(1)+'</span>';
+      if (ci === 3) return '$'+v.toFixed(1);
+      if (ci === 5) return `<span style="color:var(--accent-cyan)">${v.toFixed(1)}%</span>`;
+      if (ci === 6) return `<span style="color:${v<0?'#ef4444':'#22c55e'};font-weight:600">$${v.toLocaleString()}</span>`;
+      return v;
+    }
+  },
+  frequency: {
+    file: '🌊 frequency_response_ercot.csv',
+    footer: 'Swing Equation solver — 60 Hz grid, H=4.5s, D=1.8 — ERCOT synthetic inertia telemetry',
+    cols: ['Time', 'Freq (Hz)', 'RoCoF (Hz/s)', 'Inertia u(t)', 'dF From Nom', 'Status', 'Savings $'],
+    align: ['left','right','right','right','right','left','right'],
+    rows: [
+      ['00:00',59.998,0.0001,0.000,'−0.002','NOMINAL',0],['01:00',59.997,0.0002,0.001,'−0.003','NOMINAL',0],
+      ['04:00',59.985,-0.0012,0.028,'−0.015','MINOR DEV',120],['06:00',59.972,-0.0031,0.085,'−0.028','ALERT',840],
+      ['06:15',59.958,-0.0058,0.142,'−0.042','UFR RISK',2800],['06:30',59.971,0.0042,0.098,'−0.029','RECOVERY',3200],
+      ['07:00',59.994,0.0008,0.012,'−0.006','NOMINAL',3280],['12:00',60.001,0.0001,0.000,'+0.001','NOMINAL',3280],
+      ['15:00',59.988,-0.0018,0.045,'−0.012','MINOR DEV',3580],['17:00',59.962,-0.0048,0.128,'−0.038','ALERT',5400],
+      ['17:15',59.945,-0.0072,0.195,'−0.055','UFR RISK',8200],['17:30',59.968,0.0055,0.108,'−0.032','RECOVERY',8800],
+      ['18:00',59.992,0.0012,0.018,'−0.008','NOMINAL',8900],['23:00',59.999,0.0001,0.000,'−0.001','NOMINAL',8900],
+    ],
+    fmt: (v, ci) => {
+      if (ci === 1) return `<span style="color:${v<59.97?'#ef4444':v<59.99?'#FFD700':'#22c55e'}">${v.toFixed(3)}</span>`;
+      if (ci === 2) return `<span style="color:${Math.abs(v)>0.004?'#ef4444':'var(--text-secondary)'}">${v.toFixed(4)}</span>`;
+      if (ci === 3) return `<span style="color:${v>0.1?'#FFD700':'var(--text-secondary)'}">${v.toFixed(3)}</span>`;
+      if (ci === 5) { const c = {'NOMINAL':'#22c55e','MINOR DEV':'#FFD700','ALERT':'#FF9800','UFR RISK':'#ef4444','RECOVERY':'#42A5F5'}; return `<span style="color:${c[v]||'#64748b'};font-weight:600">${v}</span>`; }
+      if (ci === 6) return `<span style="color:#22c55e">$${v.toLocaleString()}</span>`;
+      return v;
+    }
+  },
+  ancillary: {
+    file: '🛡️ ancillary_bids_ercot.csv',
+    footer: 'Ancillary service bids during HOLD+AS intervals — RegUp / RegDown / RRS — ERCOT QSE format',
+    cols: ['Hour', 'Service', 'Capacity MW', 'Price $/MW', 'Cleared', 'Revenue $', 'MCPC $/MW'],
+    align: ['left','left','right','right','left','right','right'],
+    rows: [
+      ['05:00','RRS',6.0,8.50,'YES',51.00,8.50],['05:00','RegUp',3.0,12.40,'YES',37.20,12.40],
+      ['05:00','RegDown',1.8,4.20,'YES',7.56,4.20],['06:00','RRS',6.0,9.80,'YES',58.80,9.80],
+      ['06:00','RegUp',3.0,14.60,'YES',43.80,14.60],['07:00','RRS',6.0,11.20,'YES',67.20,15.50],
+      ['07:00','RegUp',3.0,18.90,'YES',56.70,18.90],['08:00','RRS',6.0,14.50,'YES',87.00,14.50],
+      ['09:00','RRS',6.0,16.20,'YES',97.20,16.20],['10:00','RRS',6.0,18.80,'YES',112.80,22.10],
+      ['20:00','RRS',6.0,22.40,'YES',134.40,22.40],['20:00','RegUp',3.0,28.60,'YES',85.80,28.60],
+      ['21:00','RRS',6.0,18.50,'YES',111.00,18.50],['22:00','RRS',6.0,12.30,'YES',73.80,12.30],
+    ],
+    fmt: (v, ci) => {
+      if (ci === 1) { const c = {RRS:'#00ff88',RegUp:'#00d1ff',RegDown:'#FFD700'}; return `<span style="color:${c[v]||'#64748b'};font-weight:600">${v}</span>`; }
+      if (ci === 4) return `<span style="color:${v==='YES'?'#22c55e':'#ef4444'};font-weight:600">${v}</span>`;
+      if (ci === 2 || ci === 3 || ci === 6) return typeof v==='number'?v.toFixed(2):v;
+      if (ci === 5) return `<span style="color:#22c55e;font-weight:600">$${v.toFixed(2)}</span>`;
+      return v;
+    }
+  },
+  battery: {
+    file: '🔋 battery_telemetry_ercot.csv',
+    footer: 'Battery SOC/SOH trajectory with degradation tracking — 400 MWh LFP BESS — ERCOT',
+    cols: ['Hour', 'SOC %', 'SOH', 'Cycles', 'Temp °C', 'Deg. Cost $', 'Status'],
+    align: ['left','right','right','right','right','right','left'],
+    rows: [
+      ['00:00',55.0,0.9988,0.0,24.2,0.00,'CHARGING'],['04:00',95.0,0.9987,0.4,26.8,18.40,'FULL'],
+      ['05:00',95.0,0.9987,0.4,25.1,18.40,'HOLD'],['08:00',95.0,0.9987,0.4,24.5,18.40,'HOLD'],
+      ['14:00',82.5,0.9986,0.5,27.3,24.80,'DISCHARGING'],['15:00',70.0,0.9986,0.6,28.9,31.20,'DISCHARGING'],
+      ['16:00',57.5,0.9985,0.7,30.4,38.50,'DISCHARGING'],['17:00',45.0,0.9985,0.8,31.8,45.20,'DISCHARGING'],
+      ['18:00',32.5,0.9984,0.9,30.2,51.80,'DISCHARGING'],['19:00',20.0,0.9984,1.0,28.6,58.40,'LOW SOC'],
+      ['20:00',20.0,0.9984,1.0,26.4,58.40,'HOLD'],['23:00',20.0,0.9984,1.0,24.8,58.40,'IDLE'],
+    ],
+    fmt: (v, ci) => {
+      if (ci === 1) return `<span style="color:${v<25?'#ef4444':v<50?'#FFD700':'var(--accent-cyan)'};font-weight:600">${v.toFixed(1)}%</span>`;
+      if (ci === 2) return `<span style="color:${v<0.995?'#FFD700':'#22c55e'}">${v.toFixed(4)}</span>`;
+      if (ci === 4) return `<span style="color:${v>30?'#FF9800':'var(--text-secondary)'}">${v.toFixed(1)}°C</span>`;
+      if (ci === 5) return `<span style="color:#ef4444">$${v.toFixed(2)}</span>`;
+      if (ci === 6) { const c = {CHARGING:'#00d1ff',DISCHARGING:'#22c55e',HOLD:'#64748b',IDLE:'#3a4a6b',FULL:'#AB47BC','LOW SOC':'#ef4444'}; return `<span style="color:${c[v]||'#64748b'};font-weight:600">${v}</span>`; }
+      if (ci === 3) return v.toFixed(1);
+      return v;
+    }
+  },
+  bids: {
+    file: '🎯 market_bids_ercot_dam.csv',
+    footer: 'Day-Ahead Market bid submission — 5-block offer curve per interval — ERCOT QSE format',
+    cols: ['Hour', 'Product', 'Block', 'Capacity MW', 'Price $/MWh', 'Status', 'Award MW'],
+    align: ['left','left','left','right','right','left','right'],
+    rows: [
+      ['14:00','Energy','Block 1',25,65.00,'AWARDED',25],['14:00','Energy','Block 2',25,72.00,'AWARDED',25],
+      ['14:00','Energy','Block 3',25,80.00,'AWARDED',25],['14:00','Energy','Block 4',15,95.00,'AWARDED',15],
+      ['14:00','Energy','Block 5',10,125.00,'PARTIAL',8],['15:00','Energy','Block 1',25,75.00,'AWARDED',25],
+      ['15:00','Energy','Block 2',25,88.00,'AWARDED',25],['15:00','Energy','Block 3',25,105.00,'AWARDED',25],
+      ['16:00','Energy','Block 1',25,110.00,'AWARDED',25],['16:00','Energy','Block 2',25,135.00,'AWARDED',25],
+      ['16:00','Energy','Block 3',25,165.00,'AWARDED',25],['17:00','Energy','Block 1',25,145.00,'AWARDED',25],
+      ['17:00','Energy','Block 2',25,180.00,'AWARDED',25],['17:00','Energy','Block 3',25,220.00,'AWARDED',20],
+    ],
+    fmt: (v, ci) => {
+      if (ci === 1) return `<span style="color:#00d1ff;font-weight:600">${v}</span>`;
+      if (ci === 4) return '$'+v.toFixed(2);
+      if (ci === 5) { const c = {AWARDED:'#22c55e',PARTIAL:'#FFD700',REJECTED:'#ef4444'}; return `<span style="color:${c[v]||'#64748b'};font-weight:600">${v}</span>`; }
+      if (ci === 6) return `<span style="font-weight:600">${v}</span>`;
+      return v;
+    }
+  },
+  forecast: {
+    file: '🔮 price_forecast_ercot_72h.csv',
+    footer: '72-hour LMP price forecast with confidence intervals — ERCOT Houston Hub — AI/ML engine',
+    cols: ['Hour', 'DA Forecast', 'RT Forecast', 'CI Low', 'CI High', 'Confidence', 'Action'],
+    align: ['left','right','right','right','right','left','left'],
+    rows: [
+      ['T+1',22.4,24.1,18.2,28.6,'HIGH','CHARGE'],['T+2',18.6,19.8,14.5,23.2,'HIGH','CHARGE'],
+      ['T+4',14.8,15.2,11.0,19.5,'HIGH','CHARGE'],['T+8',42.1,48.5,35.0,62.0,'MEDIUM','HOLD'],
+      ['T+14',78.3,92.0,55.0,135.0,'MEDIUM','DISCHARGE'],['T+16',142.6,185.0,95.0,280.0,'LOW','DISCHARGE'],
+      ['T+17',189.4,250.0,110.0,420.0,'LOW','DISCHARGE'],['T+24',35.2,38.0,28.0,48.0,'HIGH','HOLD'],
+      ['T+36',28.5,30.1,22.0,38.0,'MEDIUM','CHARGE'],['T+48',55.8,62.0,40.0,85.0,'MEDIUM','HOLD'],
+      ['T+60',95.2,110.0,65.0,165.0,'LOW','DISCHARGE'],['T+72',42.0,45.0,30.0,60.0,'MEDIUM','HOLD'],
+    ],
+    fmt: (v, ci) => {
+      if (ci === 1 || ci === 2) return `$${v.toFixed(1)}`;
+      if (ci === 3) return `<span style="color:#64748b">$${v.toFixed(1)}</span>`;
+      if (ci === 4) return `<span style="color:#64748b">$${v.toFixed(1)}</span>`;
+      if (ci === 5) { const c = {HIGH:'#22c55e',MEDIUM:'#FFD700',LOW:'#ef4444'}; return `<span style="color:${c[v]||'#64748b'};font-weight:600">${v}</span>`; }
+      if (ci === 6) { const c = {CHARGE:'#ef4444',DISCHARGE:'#22c55e',HOLD:'#64748b'}; return `<span style="color:${c[v]||'#64748b'};font-weight:600">${v}</span>`; }
+      return v;
+    }
+  }
+};
+
+function switchSampleTab(tabId) {
+  // Update tab buttons
+  document.querySelectorAll('#sampleTabs .sample-tab').forEach(btn => {
+    const isActive = btn.dataset.tab === tabId;
+    btn.style.borderColor = isActive ? 'var(--accent-cyan)' : 'var(--border)';
+    btn.style.color = isActive ? 'var(--accent-cyan)' : 'var(--text-muted)';
+  });
+  renderSampleTab(tabId);
+}
+
+function renderSampleTab(tabId) {
+  const ds = SAMPLE_DATA[tabId];
+  if (!ds) return;
+
+  document.getElementById('sampleFileName').textContent = ds.file;
+  document.getElementById('sampleFooter').textContent = ds.footer;
+
+  // Render header
+  const thead = document.getElementById('sampleTableHead');
+  const thStyle = 'padding:10px 12px;color:var(--accent-cyan);font-size:10px;letter-spacing:1px;text-transform:uppercase;';
+  thead.innerHTML = '<tr style="border-bottom:2px solid var(--border);">' +
+    ds.cols.map((c, i) => `<th style="${thStyle}text-align:${ds.align[i]};">${c}</th>`).join('') + '</tr>';
+
+  // Render body
   const tbody = document.getElementById('sampleOutputBody');
-  if (!tbody || tbody.children.length > 0) return;
+  tbody.innerHTML = '';
 
-  // Realistic 24-hour ERCOT dispatch data (100 MW fleet, 400 MWh BESS)
-  const data = [
-    { h: 0,  strat: 'CHARGE',   mw: -100, da: 22.4, rt: 19.8, soc: 55.0, rev: -1980 },
-    { h: 1,  strat: 'CHARGE',   mw: -100, da: 18.6, rt: 16.2, soc: 67.5, rev: -1620 },
-    { h: 2,  strat: 'CHARGE',   mw: -100, da: 15.3, rt: 14.1, soc: 80.0, rev: -1410 },
-    { h: 3,  strat: 'CHARGE',   mw: -100, da: 14.8, rt: 13.5, soc: 92.5, rev: -1350 },
-    { h: 4,  strat: 'CHARGE',   mw: -100, da: 16.1, rt: 15.0, soc: 95.0, rev: -1500 },
-    { h: 5,  strat: 'HOLD+AS',  mw: 0,    da: 20.5, rt: 19.2, soc: 95.0, rev: 180 },
-    { h: 6,  strat: 'HOLD+AS',  mw: 0,    da: 28.3, rt: 27.1, soc: 95.0, rev: 203 },
-    { h: 7,  strat: 'HOLD+AS',  mw: 0,    da: 35.6, rt: 38.2, soc: 95.0, rev: 286 },
-    { h: 8,  strat: 'HOLD+AS',  mw: 0,    da: 42.1, rt: 44.8, soc: 95.0, rev: 336 },
-    { h: 9,  strat: 'HOLD+AS',  mw: 0,    da: 48.3, rt: 46.5, soc: 95.0, rev: 349 },
-    { h: 10, strat: 'HOLD+AS',  mw: 0,    da: 52.7, rt: 55.1, soc: 95.0, rev: 413 },
-    { h: 11, strat: 'HOLD+AS',  mw: 0,    da: 55.8, rt: 58.3, soc: 95.0, rev: 437 },
-    { h: 12, strat: 'HOLD+AS',  mw: 0,    da: 58.2, rt: 61.4, soc: 95.0, rev: 461 },
-    { h: 13, strat: 'HOLD+AS',  mw: 0,    da: 62.5, rt: 67.8, soc: 95.0, rev: 509 },
-    { h: 14, strat: 'DISCHARGE', mw: 100, da: 78.3, rt: 85.2, soc: 82.5, rev: 8520 },
-    { h: 15, strat: 'DISCHARGE', mw: 100, da: 95.1, rt: 112.4, soc: 70.0, rev: 11240 },
-    { h: 16, strat: 'DISCHARGE', mw: 100, da: 142.6, rt: 178.3, soc: 57.5, rev: 17830 },
-    { h: 17, strat: 'DISCHARGE', mw: 100, da: 189.4, rt: 245.7, soc: 45.0, rev: 24570 },
-    { h: 18, strat: 'DISCHARGE', mw: 100, da: 156.2, rt: 168.9, soc: 32.5, rev: 16890 },
-    { h: 19, strat: 'DISCHARGE', mw: 100, da: 98.5, rt: 105.3, soc: 20.0, rev: 10530 },
-    { h: 20, strat: 'HOLD+AS',  mw: 0,    da: 68.4, rt: 65.2, soc: 20.0, rev: 489 },
-    { h: 21, strat: 'HOLD+AS',  mw: 0,    da: 52.1, rt: 48.6, soc: 20.0, rev: 365 },
-    { h: 22, strat: 'HOLD+AS',  mw: 0,    da: 38.7, rt: 35.4, soc: 20.0, rev: 266 },
-    { h: 23, strat: 'HOLD+AS',  mw: 0,    da: 28.2, rt: 25.1, soc: 20.0, rev: 188 },
-  ];
-
-  data.forEach((d, i) => {
+  ds.rows.forEach((row, ri) => {
     const tr = document.createElement('tr');
-    tr.style.cssText = `border-bottom: 1px solid rgba(26,39,68,0.3); opacity: 0; transform: translateX(-8px); transition: all 0.3s ease ${i * 0.03}s;`;
-
-    const stratColor = d.strat === 'CHARGE' ? '#ef4444' : d.strat === 'DISCHARGE' ? '#22c55e' : '#64748b';
-    const mwColor = d.mw < 0 ? '#ef4444' : d.mw > 0 ? '#22c55e' : '#64748b';
-    const revColor = d.rev < 0 ? '#ef4444' : '#22c55e';
-
-    tr.innerHTML = `
-      <td style="padding: 8px 12px; color: var(--text-secondary);">${String(d.h).padStart(2, '0')}:00</td>
-      <td style="padding: 8px 12px;"><span style="color: ${stratColor}; font-weight: 600;">${d.strat}</span></td>
-      <td style="padding: 8px 12px; text-align: right; color: ${mwColor}; font-weight: 600;">${d.mw > 0 ? '+' : ''}${d.mw}</td>
-      <td style="padding: 8px 12px; text-align: right; color: var(--text-secondary);">$${d.da.toFixed(1)}</td>
-      <td style="padding: 8px 12px; text-align: right; color: ${d.rt > 100 ? '#FFD700' : 'var(--text-secondary)'}; ${d.rt > 100 ? 'font-weight: 700;' : ''}">${d.rt > 100 ? '⚡ ' : ''}$${d.rt.toFixed(1)}</td>
-      <td style="padding: 8px 12px; text-align: right; color: var(--accent-cyan);">${d.soc.toFixed(1)}%</td>
-      <td style="padding: 8px 12px; text-align: right; color: ${revColor}; font-weight: 600;">$${d.rev.toLocaleString()}</td>
-    `;
-
+    tr.style.cssText = `border-bottom:1px solid rgba(26,39,68,0.3);opacity:0;transform:translateX(-8px);transition:all 0.3s ease ${ri*0.03}s;`;
+    tr.innerHTML = row.map((v, ci) => {
+      const val = ds.fmt ? ds.fmt(v, ci) : v;
+      return `<td style="padding:8px 12px;text-align:${ds.align[ci]};color:var(--text-secondary);">${val}</td>`;
+    }).join('');
     tr.addEventListener('mouseenter', () => { tr.style.background = 'rgba(0,209,255,0.04)'; });
     tr.addEventListener('mouseleave', () => { tr.style.background = 'none'; });
     tbody.appendChild(tr);
-
-    setTimeout(() => {
-      tr.style.opacity = '1';
-      tr.style.transform = 'translateX(0)';
-    }, 50 + i * 30);
+    setTimeout(() => { tr.style.opacity = '1'; tr.style.transform = 'translateX(0)'; }, 50 + ri * 30);
   });
+}
+
+function renderSampleOutputs() {
+  renderSampleTab('dispatch');
 }
 
 // ── Initialize ──

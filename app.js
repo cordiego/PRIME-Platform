@@ -27,6 +27,10 @@ function showPage(pageId) {
   if (pageId === 'results') {
     setTimeout(() => { renderSimResults(); }, 100);
   }
+  // Render sample outputs if showing grid outputs
+  if (pageId === 'outputs') {
+    setTimeout(() => { renderSampleOutputs(); }, 100);
+  }
 }
 
 function toggleMobile() {
@@ -457,6 +461,68 @@ function renderSimResults() {
       }, 60 + i * 80);
     });
   }
+}
+
+// ── Grid Outputs — Sample Data Generator ──
+function renderSampleOutputs() {
+  const tbody = document.getElementById('sampleOutputBody');
+  if (!tbody || tbody.children.length > 0) return;
+
+  // Realistic 24-hour ERCOT dispatch data (100 MW fleet, 400 MWh BESS)
+  const data = [
+    { h: 0,  strat: 'CHARGE',   mw: -100, da: 22.4, rt: 19.8, soc: 55.0, rev: -1980 },
+    { h: 1,  strat: 'CHARGE',   mw: -100, da: 18.6, rt: 16.2, soc: 67.5, rev: -1620 },
+    { h: 2,  strat: 'CHARGE',   mw: -100, da: 15.3, rt: 14.1, soc: 80.0, rev: -1410 },
+    { h: 3,  strat: 'CHARGE',   mw: -100, da: 14.8, rt: 13.5, soc: 92.5, rev: -1350 },
+    { h: 4,  strat: 'CHARGE',   mw: -100, da: 16.1, rt: 15.0, soc: 95.0, rev: -1500 },
+    { h: 5,  strat: 'HOLD+AS',  mw: 0,    da: 20.5, rt: 19.2, soc: 95.0, rev: 180 },
+    { h: 6,  strat: 'HOLD+AS',  mw: 0,    da: 28.3, rt: 27.1, soc: 95.0, rev: 203 },
+    { h: 7,  strat: 'HOLD+AS',  mw: 0,    da: 35.6, rt: 38.2, soc: 95.0, rev: 286 },
+    { h: 8,  strat: 'HOLD+AS',  mw: 0,    da: 42.1, rt: 44.8, soc: 95.0, rev: 336 },
+    { h: 9,  strat: 'HOLD+AS',  mw: 0,    da: 48.3, rt: 46.5, soc: 95.0, rev: 349 },
+    { h: 10, strat: 'HOLD+AS',  mw: 0,    da: 52.7, rt: 55.1, soc: 95.0, rev: 413 },
+    { h: 11, strat: 'HOLD+AS',  mw: 0,    da: 55.8, rt: 58.3, soc: 95.0, rev: 437 },
+    { h: 12, strat: 'HOLD+AS',  mw: 0,    da: 58.2, rt: 61.4, soc: 95.0, rev: 461 },
+    { h: 13, strat: 'HOLD+AS',  mw: 0,    da: 62.5, rt: 67.8, soc: 95.0, rev: 509 },
+    { h: 14, strat: 'DISCHARGE', mw: 100, da: 78.3, rt: 85.2, soc: 82.5, rev: 8520 },
+    { h: 15, strat: 'DISCHARGE', mw: 100, da: 95.1, rt: 112.4, soc: 70.0, rev: 11240 },
+    { h: 16, strat: 'DISCHARGE', mw: 100, da: 142.6, rt: 178.3, soc: 57.5, rev: 17830 },
+    { h: 17, strat: 'DISCHARGE', mw: 100, da: 189.4, rt: 245.7, soc: 45.0, rev: 24570 },
+    { h: 18, strat: 'DISCHARGE', mw: 100, da: 156.2, rt: 168.9, soc: 32.5, rev: 16890 },
+    { h: 19, strat: 'DISCHARGE', mw: 100, da: 98.5, rt: 105.3, soc: 20.0, rev: 10530 },
+    { h: 20, strat: 'HOLD+AS',  mw: 0,    da: 68.4, rt: 65.2, soc: 20.0, rev: 489 },
+    { h: 21, strat: 'HOLD+AS',  mw: 0,    da: 52.1, rt: 48.6, soc: 20.0, rev: 365 },
+    { h: 22, strat: 'HOLD+AS',  mw: 0,    da: 38.7, rt: 35.4, soc: 20.0, rev: 266 },
+    { h: 23, strat: 'HOLD+AS',  mw: 0,    da: 28.2, rt: 25.1, soc: 20.0, rev: 188 },
+  ];
+
+  data.forEach((d, i) => {
+    const tr = document.createElement('tr');
+    tr.style.cssText = `border-bottom: 1px solid rgba(26,39,68,0.3); opacity: 0; transform: translateX(-8px); transition: all 0.3s ease ${i * 0.03}s;`;
+
+    const stratColor = d.strat === 'CHARGE' ? '#ef4444' : d.strat === 'DISCHARGE' ? '#22c55e' : '#64748b';
+    const mwColor = d.mw < 0 ? '#ef4444' : d.mw > 0 ? '#22c55e' : '#64748b';
+    const revColor = d.rev < 0 ? '#ef4444' : '#22c55e';
+
+    tr.innerHTML = `
+      <td style="padding: 8px 12px; color: var(--text-secondary);">${String(d.h).padStart(2, '0')}:00</td>
+      <td style="padding: 8px 12px;"><span style="color: ${stratColor}; font-weight: 600;">${d.strat}</span></td>
+      <td style="padding: 8px 12px; text-align: right; color: ${mwColor}; font-weight: 600;">${d.mw > 0 ? '+' : ''}${d.mw}</td>
+      <td style="padding: 8px 12px; text-align: right; color: var(--text-secondary);">$${d.da.toFixed(1)}</td>
+      <td style="padding: 8px 12px; text-align: right; color: ${d.rt > 100 ? '#FFD700' : 'var(--text-secondary)'}; ${d.rt > 100 ? 'font-weight: 700;' : ''}">${d.rt > 100 ? '⚡ ' : ''}$${d.rt.toFixed(1)}</td>
+      <td style="padding: 8px 12px; text-align: right; color: var(--accent-cyan);">${d.soc.toFixed(1)}%</td>
+      <td style="padding: 8px 12px; text-align: right; color: ${revColor}; font-weight: 600;">$${d.rev.toLocaleString()}</td>
+    `;
+
+    tr.addEventListener('mouseenter', () => { tr.style.background = 'rgba(0,209,255,0.04)'; });
+    tr.addEventListener('mouseleave', () => { tr.style.background = 'none'; });
+    tbody.appendChild(tr);
+
+    setTimeout(() => {
+      tr.style.opacity = '1';
+      tr.style.transform = 'translateX(0)';
+    }, 50 + i * 30);
+  });
 }
 
 // ── Initialize ──

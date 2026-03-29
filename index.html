@@ -19,6 +19,7 @@
     <ul class="navbar-links" id="navLinks">
       <li><a onclick="showPage('landing')" class="active" data-page="landing">Home</a></li>
       <li><a onclick="showPage('products')" data-page="products">Products</a></li>
+      <li><a onclick="showPage('outputs')" data-page="outputs">Grid Outputs</a></li>
       <li><a onclick="showPage('pricing')" data-page="pricing">Pricing</a></li>
       <li><a onclick="showPage('demo')" data-page="demo">Live Demo</a></li>
       <li><a onclick="showPage('results')" data-page="results">Results</a></li>
@@ -724,6 +725,277 @@
 </div>
 
 <!-- ============================================================
+     PAGE: GRID OUTPUTS
+     ============================================================ -->
+<div class="page" id="page-outputs">
+  <section class="section" style="padding-top: 120px;">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Integration-Ready</div>
+        <h2>Grid Engineer Outputs</h2>
+        <p>Every output from PRIMEngine is designed for direct integration into your SCADA, EMS, and BMS systems. Download sample data or connect via API.</p>
+      </div>
+
+      <!-- Hero banner -->
+      <div style="padding: 28px 32px; background: linear-gradient(135deg, rgba(0,209,255,0.08), rgba(16,185,129,0.06)); border: 1px solid rgba(0,209,255,0.2); border-radius: 16px; margin-bottom: 48px; text-align: center;">
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 28px; font-weight: 700; color: var(--accent-cyan); text-shadow: 0 0 12px var(--glow-cyan);">6</div>
+            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px;">Output Streams</div>
+          </div>
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 28px; font-weight: 700; color: var(--accent-green); text-shadow: 0 0 12px var(--glow-green);">17</div>
+            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px;">Markets Supported</div>
+          </div>
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 28px; font-weight: 700; color: #F1C40F;">4</div>
+            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px;">Protocols</div>
+          </div>
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 28px; font-weight: 700; color: #AB47BC;">CSV · JSON · API</div>
+            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px;">Export Formats</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── OUTPUT CATALOG ─── -->
+      <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-cyan); letter-spacing: 2px; margin-bottom: 20px; font-weight: 600;">OUTPUT CATALOG</div>
+
+      <div class="products-grid" style="grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));">
+        <!-- Output 1: Dispatch Schedule -->
+        <div class="product-card" style="--card-accent: #00d1ff;">
+          <div class="product-icon">⚡</div>
+          <div class="product-title" style="color: #00d1ff;">Optimal Dispatch Schedule</div>
+          <div class="product-desc">Hourly MW charge/discharge setpoints from the HJB two-pass lookahead optimizer. Direct feed for BESS controllers and EMS load-following systems.</div>
+          <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Fields:</strong> Timestamp · Strategy · Dispatch MW · DA/RT Price
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Use Case:</strong> EMS load scheduling, BESS controllers, day-ahead commitment
+          </div>
+          <div class="product-tags">
+            <span class="tag">CSV</span>
+            <span class="tag">JSON</span>
+            <span class="tag">SCADA API</span>
+          </div>
+        </div>
+
+        <!-- Output 2: Frequency Response -->
+        <div class="product-card" style="--card-accent: #26C6DA;">
+          <div class="product-icon">🌊</div>
+          <div class="product-title" style="color: #26C6DA;">Frequency Response Signals</div>
+          <div class="product-desc">Swing Equation solver telemetry — grid frequency, RoCoF (df/dt), and synthetic inertia injection u(t). Tuned per market: 50 Hz (ENTSO-E) or 60 Hz (ERCOT/SEN).</div>
+          <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Fields:</strong> Frequency Hz · RoCoF · Inertia u(t) · Cumulative Savings
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Use Case:</strong> Governor control, synthetic inertia inverters, UFR settings
+          </div>
+          <div class="product-tags">
+            <span class="tag">Real-Time</span>
+            <span class="tag">CSV</span>
+            <span class="tag">IEC 61850</span>
+          </div>
+        </div>
+
+        <!-- Output 3: Price Forecast -->
+        <div class="product-card" style="--card-accent: #FFD700;">
+          <div class="product-icon">💰</div>
+          <div class="product-title" style="color: #FFD700;">Price Forecast & Arbitrage</div>
+          <div class="product-desc">Day-ahead and real-time LMP forecasts with pre-identified charge/discharge windows. Includes spike detection and spread ratios per hour.</div>
+          <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Fields:</strong> DA LMP · RT LMP · Spread Ratio · Action Tag · Spike Flag
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Use Case:</strong> Trading desk auto-bidding, merchant scheduling, congestion analysis
+          </div>
+          <div class="product-tags">
+            <span class="tag">CSV</span>
+            <span class="tag">JSON</span>
+            <span class="tag">Trading API</span>
+          </div>
+        </div>
+
+        <!-- Output 4: Battery Telemetry -->
+        <div class="product-card" style="--card-accent: #8b5cf6;">
+          <div class="product-icon">🔋</div>
+          <div class="product-title" style="color: #8b5cf6;">Battery SOC / SOH Telemetry</div>
+          <div class="product-desc">Full state-of-charge trajectory, state-of-health degradation tracking, cycle count, and estimated remaining battery life with degradation-aware optimization.</div>
+          <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Fields:</strong> SOC % · SOH · Cycle Count · Degradation Cost · Est. Life
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Use Case:</strong> BMS integration, predictive maintenance, warranty tracking
+          </div>
+          <div class="product-tags">
+            <span class="tag">CSV</span>
+            <span class="tag">JSON</span>
+            <span class="tag">BMS Feed</span>
+          </div>
+        </div>
+
+        <!-- Output 5: Ancillary Bids -->
+        <div class="product-card" style="--card-accent: #00ff88;">
+          <div class="product-icon">🛡️</div>
+          <div class="product-title" style="color: #00ff88;">Ancillary Services Bids</div>
+          <div class="product-desc">Per-interval capacity and price bids for RegUp, RegDown, and Responsive Reserve Service (RRS). Optimized for maximum ancillary revenue during hold periods.</div>
+          <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Fields:</strong> Service · Capacity MW · Price $/MW · Revenue per Interval
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Use Case:</strong> ISO ancillary market auto-bidding, reserve compliance
+          </div>
+          <div class="product-tags">
+            <span class="tag">CSV</span>
+            <span class="tag">JSON</span>
+            <span class="tag">ISO Portal</span>
+          </div>
+        </div>
+
+        <!-- Output 6: Revenue Reports -->
+        <div class="product-card" style="--card-accent: #F1C40F;">
+          <div class="product-icon">📊</div>
+          <div class="product-title" style="color: #F1C40F;">Savings & Revenue Reports</div>
+          <div class="product-desc">Capital recovery analysis — total uplift vs baseline, royalty split, MWh gap quantification, and annual projections. PDF-ready for regulatory filings and investor decks.</div>
+          <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Fields:</strong> Net Profit · Revenue · Uplift % · Degradation · Annual Projection
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Use Case:</strong> Finance systems, regulatory compliance, investor reporting
+          </div>
+          <div class="product-tags">
+            <span class="tag">PDF</span>
+            <span class="tag">JSON</span>
+            <span class="tag">Markdown</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── SAMPLE DATA PREVIEW ─── -->
+      <div style="margin-top: 64px;">
+        <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-green); letter-spacing: 2px; margin-bottom: 20px; font-weight: 600;">SAMPLE OUTPUT PREVIEW</div>
+        <div style="padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <div style="font-family: var(--font-mono); font-size: 14px; font-weight: 600;">⚡ dispatch_schedule_ercot.csv</div>
+            <span class="live-indicator"><span class="live-dot"></span> Sample Data</span>
+          </div>
+          <div style="overflow-x: auto;">
+            <table id="sampleOutputTable" style="width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 12px;">
+              <thead>
+                <tr style="border-bottom: 2px solid var(--border);">
+                  <th style="text-align: left; padding: 10px 12px; color: var(--accent-cyan); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Hour</th>
+                  <th style="text-align: left; padding: 10px 12px; color: var(--accent-cyan); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Strategy</th>
+                  <th style="text-align: right; padding: 10px 12px; color: var(--accent-cyan); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Dispatch MW</th>
+                  <th style="text-align: right; padding: 10px 12px; color: var(--accent-cyan); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">DA $/MWh</th>
+                  <th style="text-align: right; padding: 10px 12px; color: var(--accent-cyan); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">RT $/MWh</th>
+                  <th style="text-align: right; padding: 10px 12px; color: var(--accent-cyan); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">SOC %</th>
+                  <th style="text-align: right; padding: 10px 12px; color: var(--accent-cyan); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Revenue $</th>
+                </tr>
+              </thead>
+              <tbody id="sampleOutputBody"></tbody>
+            </table>
+          </div>
+          <div style="margin-top: 16px; text-align: center; color: var(--text-muted); font-size: 12px;">
+            Showing 24-hour HJB-optimized dispatch for 100 MW fleet / 400 MWh BESS — ERCOT Houston Hub
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── INTEGRATION PROTOCOLS ─── -->
+      <div style="margin-top: 64px;">
+        <div style="font-family: var(--font-mono); font-size: 12px; color: #AB47BC; letter-spacing: 2px; margin-bottom: 20px; font-weight: 600;">INTEGRATION PROTOCOLS</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+
+          <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: all 0.3s;" onmouseover="this.style.borderColor='#00d1ff'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="font-family: var(--font-mono); font-size: 10px; color: var(--accent-cyan); letter-spacing: 2px; font-weight: 600;">FILE-BASED</div>
+            <div style="font-size: 16px; font-weight: 700; margin-top: 4px; margin-bottom: 12px;">CSV / JSON Export</div>
+            <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;">Download dispatch schedules, battery telemetry, and price targets as structured files. Drop into any EMS, SCADA, or analytics system.</div>
+            <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 14px; font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary); line-height: 1.7; overflow-x: auto;">
+              <span style="color: #00ff88;">import</span> pandas <span style="color: #00ff88;">as</span> pd<br>
+              dispatch = pd.read_csv(<span style="color: #FFD700;">"dispatch_ercot.csv"</span>)<br>
+              charge = dispatch[dispatch.Strategy == <span style="color: #FFD700;">"CHARGE"</span>]<br>
+              <span style="color: #3a4a6b;"># Send setpoints to BESS controller</span>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: all 0.3s;" onmouseover="this.style.borderColor='#00ff88'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="font-family: var(--font-mono); font-size: 10px; color: var(--accent-green); letter-spacing: 2px; font-weight: 600;">REST API</div>
+            <div style="font-size: 16px; font-weight: 700; margin-top: 4px; margin-bottom: 12px;">WebSocket & REST Feed</div>
+            <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;">Real-time dispatch signals via authenticated API. WebSocket streaming for sub-second frequency telemetry. OpenAPI 3.0 documented.</div>
+            <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 14px; font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary); line-height: 1.7; overflow-x: auto;">
+              resp = requests.get(<br>
+              &nbsp;&nbsp;<span style="color: #FFD700;">"api.primenergeia.com/v1/dispatch"</span>,<br>
+              &nbsp;&nbsp;params={<span style="color: #FFD700;">"market"</span>: <span style="color: #FFD700;">"ERCOT"</span>})<br>
+              <span style="color: #3a4a6b;"># Feed into EMS / SCADA</span>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: all 0.3s;" onmouseover="this.style.borderColor='#FFD700'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="font-family: var(--font-mono); font-size: 10px; color: #FFD700; letter-spacing: 2px; font-weight: 600;">INDUSTRIAL</div>
+            <div style="font-size: 16px; font-weight: 700; margin-top: 4px; margin-bottom: 12px;">Modbus / DNP3 / IEC 61850</div>
+            <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;">Write dispatch setpoints directly to Modbus registers. DNP3 for substations. IEC 61850 GOOSE for protection-class latency.</div>
+            <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 14px; font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary); line-height: 1.7; overflow-x: auto;">
+              client = ModbusTcpClient(<span style="color: #FFD700;">"192.168.1.100"</span>)<br>
+              client.write_register(<span style="color: #00d1ff;">100</span>, setpoint_mw)<br>
+              client.write_register(<span style="color: #00d1ff;">101</span>, mode)<br>
+              <span style="color: #3a4a6b;"># Reg 100=MW, 101=Mode</span>
+            </div>
+          </div>
+
+          <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: all 0.3s;" onmouseover="this.style.borderColor='#8b5cf6'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="font-family: var(--font-mono); font-size: 10px; color: #8b5cf6; letter-spacing: 2px; font-weight: 600;">BMS</div>
+            <div style="font-size: 16px; font-weight: 700; margin-top: 4px; margin-bottom: 12px;">Battery Management Feed</div>
+            <div style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;">SOC target trajectory and degradation-aware limits fed directly to the BMS. Predictive maintenance alerts when SOH drops below threshold.</div>
+            <div style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 14px; font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary); line-height: 1.7; overflow-x: auto;">
+              bms.set_target_soc(point[<span style="color: #FFD700;">"SOC_pct"</span>])<br>
+              bms.update_degradation(soh=<span style="color: #00d1ff;">0.9984</span>)<br>
+              <span style="color: #00ff88;">if</span> soh &lt; <span style="color: #00d1ff;">0.85</span>:<br>
+              &nbsp;&nbsp;alert(<span style="color: #FFD700;">"MAINT_REQUIRED"</span>)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── MARKET SPECS ─── -->
+      <div style="margin-top: 64px;">
+        <div style="font-family: var(--font-mono); font-size: 12px; color: #F1C40F; letter-spacing: 2px; margin-bottom: 20px; font-weight: 600;">MARKET TECHNICAL SPECIFICATIONS</div>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--border);">
+                <th style="text-align: left; padding: 12px; color: var(--text-secondary); font-weight: 600;">Parameter</th>
+                <th style="text-align: center; padding: 12px; color: #00ff88; font-family: var(--font-mono); font-weight: 600;">SEN 🇲🇽</th>
+                <th style="text-align: center; padding: 12px; color: #00d1ff; font-family: var(--font-mono); font-weight: 600;">ERCOT 🇺🇸</th>
+                <th style="text-align: center; padding: 12px; color: #F1C40F; font-family: var(--font-mono); font-weight: 600;">MIBEL 🇪🇸🇵🇹</th>
+              </tr>
+            </thead>
+            <tbody style="color: var(--text-secondary);">
+              <tr style="border-bottom: 1px solid rgba(26,39,68,0.4);"><td style="padding:10px 12px;">Frequency</td><td style="text-align:center;font-family:var(--font-mono);">60 Hz</td><td style="text-align:center;font-family:var(--font-mono);">60 Hz</td><td style="text-align:center;font-family:var(--font-mono);">50 Hz</td></tr>
+              <tr style="border-bottom: 1px solid rgba(26,39,68,0.4);"><td style="padding:10px 12px;">Inertia H</td><td style="text-align:center;font-family:var(--font-mono);">5.0 s</td><td style="text-align:center;font-family:var(--font-mono);">4.5 s</td><td style="text-align:center;font-family:var(--font-mono);">6.0 s</td></tr>
+              <tr style="border-bottom: 1px solid rgba(26,39,68,0.4);"><td style="padding:10px 12px;">Pricing Model</td><td style="text-align:center;font-family:var(--font-mono);">PML (Nodal)</td><td style="text-align:center;font-family:var(--font-mono);">LMP (Nodal)</td><td style="text-align:center;font-family:var(--font-mono);">OMIE Pool</td></tr>
+              <tr style="border-bottom: 1px solid rgba(26,39,68,0.4);"><td style="padding:10px 12px;">Settlement</td><td style="text-align:center;font-family:var(--font-mono);">15-min</td><td style="text-align:center;font-family:var(--font-mono);">5-min RT</td><td style="text-align:center;font-family:var(--font-mono);">Hourly</td></tr>
+              <tr style="border-bottom: 1px solid rgba(26,39,68,0.4);"><td style="padding:10px 12px;">THD Standard</td><td style="text-align:center;font-family:var(--font-mono);">Código de Red</td><td style="text-align:center;font-family:var(--font-mono);">IEEE 519</td><td style="text-align:center;font-family:var(--font-mono);">EN 50160</td></tr>
+              <tr style="border-bottom: 1px solid rgba(26,39,68,0.4);"><td style="padding:10px 12px;">THD Limit</td><td style="text-align:center;font-family:var(--font-mono);">≤5%</td><td style="text-align:center;font-family:var(--font-mono);">≤5%</td><td style="text-align:center;font-family:var(--font-mono);">≤8%</td></tr>
+              <tr style="border-bottom: 1px solid rgba(26,39,68,0.4);"><td style="padding:10px 12px;">Penalty Threshold</td><td style="text-align:center;font-family:var(--font-mono);">±0.05 Hz</td><td style="text-align:center;font-family:var(--font-mono);">±0.03 Hz</td><td style="text-align:center;font-family:var(--font-mono);">±0.04 Hz</td></tr>
+              <tr><td style="padding:10px 12px;">Nodes</td><td style="text-align:center;font-family:var(--font-mono);">30</td><td style="text-align:center;font-family:var(--font-mono);">22</td><td style="text-align:center;font-family:var(--font-mono);">20</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top: 16px; padding: 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; font-size: 13px; color: var(--text-muted); text-align: center;">
+          <strong style="color: var(--text-secondary);">17 Global ISOs Supported:</strong> SEN · ERCOT · MIBEL · PJM · CAISO · MISO · SPP · NYISO · ISONE · IESO · AESO · EPEX (DE/FR) · Nord Pool · Elexon · NEM · JEPX
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align: center; margin-top: 56px;">
+        <a onclick="showPage('demo')" class="btn btn-primary" style="cursor: pointer;">⚡ Try the ROI Calculator →</a>
+        <a onclick="showPage('contact')" class="btn btn-secondary" style="cursor: pointer; margin-left: 12px;">Request API Access</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
      FOOTER
      ============================================================ -->
 <footer class="footer">
@@ -731,6 +1003,7 @@
   <div class="footer-tagline">Sovereign Clean Energy Intelligence</div>
   <div class="footer-links">
     <a onclick="showPage('products')">Products</a>
+    <a onclick="showPage('outputs')">Grid Outputs</a>
     <a onclick="showPage('pricing')">Pricing</a>
     <a onclick="showPage('demo')">Demo</a>
     <a href="https://primenergeia-sovereign.streamlit.app" target="_blank">Dashboard</a>

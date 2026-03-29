@@ -740,7 +740,7 @@
       <div style="padding: 28px 32px; background: linear-gradient(135deg, rgba(0,209,255,0.08), rgba(16,185,129,0.06)); border: 1px solid rgba(0,209,255,0.2); border-radius: 16px; margin-bottom: 48px; text-align: center;">
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
           <div>
-            <div style="font-family: var(--font-mono); font-size: 28px; font-weight: 700; color: var(--accent-cyan); text-shadow: 0 0 12px var(--glow-cyan);">6</div>
+            <div style="font-family: var(--font-mono); font-size: 28px; font-weight: 700; color: var(--accent-cyan); text-shadow: 0 0 12px var(--glow-cyan);">15</div>
             <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px;">Output Streams</div>
           </div>
           <div>
@@ -867,6 +867,168 @@
             <span class="tag">PDF</span>
             <span class="tag">JSON</span>
             <span class="tag">Markdown</span>
+          </div>
+        </div>
+
+        <!-- Output 7: Automated Market Bids -->
+        <div class="product-card" style="--card-accent: #EF5350;">
+          <div class="product-icon">🎯</div>
+          <div class="product-title" style="color: #EF5350;">Automated Market Bids</div>
+          <div class="product-desc">Auto-generated DAM and RTM bid submissions for energy and ancillary services. Price-quantity offer curves optimized by HJB dispatch, ready for ISO portal upload.</div>
+          <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Fields:</strong> Bid ID · Product · Price/MW · Capacity · Interval · Status
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Use Case:</strong> ISO auto-bidding, QSE offer submission, energy trading desks
+          </div>
+          <div class="product-tags">
+            <span class="tag">DAM</span>
+            <span class="tag">RTM</span>
+            <span class="tag">ISO API</span>
+          </div>
+        </div>
+
+        <!-- Output 8: Load / Price / Solar Forecasts -->
+        <div class="product-card" style="--card-accent: #FF9800;">
+          <div class="product-icon">🔮</div>
+          <div class="product-title" style="color: #FF9800;">Load & Price Forecasts</div>
+          <div class="product-desc">AI-driven predictions of future electricity demand, LMP prices, solar irradiance, and wind generation. 24h–72h horizon with confidence intervals for risk-aware bidding.</div>
+          <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Fields:</strong> Hour · Load MW · Price $/MWh · Solar MW · Wind MW · CI Band
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Use Case:</strong> Day-ahead planning, renewable integration, risk management
+          </div>
+          <div class="product-tags">
+            <span class="tag">AI/ML</span>
+            <span class="tag">CSV</span>
+            <span class="tag">API</span>
+          </div>
+        </div>
+
+        <!-- Output 9: Reactive Power Setpoints -->
+        <div class="product-card" style="--card-accent: #42A5F5;">
+          <div class="product-icon">⚡</div>
+          <div class="product-title" style="color: #42A5F5;">Reactive Power (Q) Setpoints</div>
+          <div class="product-desc">MVAR commands for voltage support at the Point of Interconnection. Power factor correction, volt-VAR optimization, and grid-forming inverter control for POI compliance.</div>
+          <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Fields:</strong> Timestamp · Q MVAR · Power Factor · Voltage kV · Mode
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Use Case:</strong> Volt-VAR controllers, POI compliance, grid-forming inverters
+          </div>
+          <div class="product-tags">
+            <span class="tag">IEC 61850</span>
+            <span class="tag">SCADA</span>
+            <span class="tag">Real-Time</span>
+          </div>
+        </div>
+
+        <!-- Output 10: Demand Charge Management -->
+        <div class="product-card" style="--card-accent: #66BB6A;">
+          <div class="product-icon">📉</div>
+          <div class="product-title" style="color: #66BB6A;">Demand Charge Management</div>
+          <div class="product-desc">Behind-the-meter peak shaving signals that predict and clip demand spikes before they hit the utility meter. Reduces ratcheted demand charges by 15–40%.</div>
+          <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Fields:</strong> Interval · Load kW · Peak Target · BESS Action · Savings
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Use Case:</strong> C&I facilities, TOU optimization, utility bill reduction
+          </div>
+          <div class="product-tags">
+            <span class="tag">BTM</span>
+            <span class="tag">CSV</span>
+            <span class="tag">BMS</span>
+          </div>
+        </div>
+
+        <!-- Output 11: VPP / DER Fleet Signals -->
+        <div class="product-card" style="--card-accent: #AB47BC;">
+          <div class="product-icon">🌐</div>
+          <div class="product-title" style="color: #AB47BC;">VPP / DER Fleet Signals</div>
+          <div class="product-desc">Coordinated dispatch commands for geographically distributed BESS, solar, and EV charger fleets. Aggregate capacity into a single virtual power plant for ISO participation.</div>
+          <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Fields:</strong> Site ID · Asset Type · Setpoint MW · Available MW · Status
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Use Case:</strong> VPP aggregation, DER fleet management, grid flexibility markets
+          </div>
+          <div class="product-tags">
+            <span class="tag">VPP</span>
+            <span class="tag">OpenADR</span>
+            <span class="tag">API</span>
+          </div>
+        </div>
+
+        <!-- Output 12: Revenue Stacking Analytics -->
+        <div class="product-card" style="--card-accent: #EC407A;">
+          <div class="product-icon">💱</div>
+          <div class="product-title" style="color: #EC407A;">Revenue Stacking Analytics</div>
+          <div class="product-desc">Multi-stream revenue decomposition — arbitrage, ancillary services, capacity payments, demand charge savings, and renewable credits broken out per interval.</div>
+          <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Fields:</strong> Stream · Interval · Revenue $ · % of Total · Opportunity Cost
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Use Case:</strong> Asset valuation, investor reporting, strategy optimization
+          </div>
+          <div class="product-tags">
+            <span class="tag">Dashboard</span>
+            <span class="tag">JSON</span>
+            <span class="tag">PDF</span>
+          </div>
+        </div>
+
+        <!-- Output 13: Scenario Modeling -->
+        <div class="product-card" style="--card-accent: #78909C;">
+          <div class="product-icon">🧪</div>
+          <div class="product-title" style="color: #78909C;">Scenario Modeling</div>
+          <div class="product-desc">What-if simulations across tariff structures, battery configurations, market conditions, and degradation paths. Pre-deployment ROI validation and sensitivity analysis.</div>
+          <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Fields:</strong> Scenario · Config · NPV · IRR · Payback · Risk Score
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Use Case:</strong> Pre-deployment analysis, tariff comparison, financing decisions
+          </div>
+          <div class="product-tags">
+            <span class="tag">Simulation</span>
+            <span class="tag">JSON</span>
+            <span class="tag">PDF</span>
+          </div>
+        </div>
+
+        <!-- Output 14: Portfolio Dashboard -->
+        <div class="product-card" style="--card-accent: #29B6F6;">
+          <div class="product-icon">📱</div>
+          <div class="product-title" style="color: #29B6F6;">Portfolio Dashboard Feed</div>
+          <div class="product-desc">Aggregated fleet-wide telemetry for multi-site operators. Roll-up views of SOC, revenue, dispatch compliance, and alarm status across geographically distributed assets.</div>
+          <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Fields:</strong> Site · Fleet MW · Avg SOC · Revenue · Uptime % · Alarms
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Use Case:</strong> Fleet operations, NOC monitoring, executive dashboards
+          </div>
+          <div class="product-tags">
+            <span class="tag">WebSocket</span>
+            <span class="tag">REST</span>
+            <span class="tag">Dashboard</span>
+          </div>
+        </div>
+
+        <!-- Output 15: Warranty & Degradation Compliance -->
+        <div class="product-card" style="--card-accent: #FF7043;">
+          <div class="product-icon">🛡️</div>
+          <div class="product-title" style="color: #FF7043;">Warranty Compliance Monitor</div>
+          <div class="product-desc">Ensures dispatch stays within OEM warranty bounds — cycle count limits, C-rate constraints, temperature envelopes, and SOC operating windows. Prevents warranty-voiding events.</div>
+          <div style="margin: 12px 0 8px; font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Fields:</strong> Cycle Count · C-Rate · Temp °C · SOC Window · Warranty Status
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted);">
+            <strong style="color: var(--text-secondary);">Use Case:</strong> OEM compliance, predictive maintenance, asset protection
+          </div>
+          <div class="product-tags">
+            <span class="tag">BMS</span>
+            <span class="tag">Alerts</span>
+            <span class="tag">JSON</span>
           </div>
         </div>
       </div>
